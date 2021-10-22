@@ -3,9 +3,9 @@ package hu.sudoers.junction.service;
 import hu.sudoers.junction.dto.FundRequest;
 import hu.sudoers.junction.dto.QuoteCreateRequest;
 import hu.sudoers.junction.dto.RecipientCreateRequest;
+import hu.sudoers.junction.dto.TransferCreateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -59,5 +59,14 @@ public class PaymentService {
         );
 
         return restTemplate.exchange(api_host, HttpMethod.POST, entity, String.class).getBody();
+    }
+
+    public String createTransfer(TransferCreateRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Bearer " + authToken);
+        HttpEntity<TransferCreateRequest> entity = new HttpEntity<>(request, headers);
+
+        return restTemplate.exchange(apiHost + "v1/transfers", HttpMethod.POST, entity, String.class).getBody();
     }
 }
