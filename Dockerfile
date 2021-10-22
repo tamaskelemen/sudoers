@@ -7,7 +7,10 @@ COPY .mvn /project/.mvn
 COPY mvnw /project/
 COPY pom.xml /project/pom.xml
 
-COPY src /project/src
+RUN ./mvnw dependency:go-offline
+
+COPY src/ /project/src/
+COPY frontend/ /project/frontend/
 
 RUN ./mvnw package -DskipTests
 
