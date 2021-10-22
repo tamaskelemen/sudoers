@@ -8,5 +8,7 @@ import java.util.UUID;
 
 @Repository
 public interface SampleRepository extends MongoRepository<SampleEntity, UUID> {
-
+//    public SampleEntity getLast() {
+//
+//    }
 }

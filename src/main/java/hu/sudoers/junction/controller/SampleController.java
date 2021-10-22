@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api")
 @RequiredArgsConstructor
-public class Sample {
+public class SampleController {
 
     @Autowired
     private SampleRepository repository;
