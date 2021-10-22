@@ -2,6 +2,7 @@ package hu.sudoers.junction.service;
 
 import hu.sudoers.junction.dto.QuoteCreateRequest;
 import hu.sudoers.junction.dto.RecipientCreateRequest;
+import hu.sudoers.junction.dto.TransferCreateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.val;
@@ -42,5 +43,14 @@ public class PaymentService {
         HttpEntity<RecipientCreateRequest> entity = new HttpEntity<>(request, headers);
 
         return restTemplate.exchange(apiHost + "v1/accounts", HttpMethod.POST, entity, String.class).getBody();
+    }
+
+    public String createTransfer(TransferCreateRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Bearer " + authToken);
+        HttpEntity<TransferCreateRequest> entity = new HttpEntity<>(request, headers);
+
+        return restTemplate.exchange(apiHost + "v1/transfers", HttpMethod.POST, entity, String.class).getBody();
     }
 }
