@@ -13,6 +13,7 @@ public class CommissionEntity {
 
     public static final String STATUS_ACTIVE = "active";
     public static final String STATUS_INACTIVE = "inactive";
+    public static final String STATUS_ARCHIVE = "archive";
 
     @Id
     private String _id;
