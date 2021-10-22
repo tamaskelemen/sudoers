@@ -1,5 +1,6 @@
 package hu.sudoers.junction.controller;
 
+import hu.sudoers.junction.dto.FundRequest;
 import hu.sudoers.junction.dto.QuoteCreateRequest;
 import hu.sudoers.junction.dto.RecipientCreateRequest;
 import hu.sudoers.junction.service.PaymentService;
@@ -25,5 +26,10 @@ public class PaymentController {
     @PostMapping("/recipient")
     public ResponseEntity<String> createRecipientAccount(@RequestBody RecipientCreateRequest request) {
         return ResponseEntity.ok(paymentService.createRecipientAccount(request));
+    }
+
+    @PostMapping("/fund")
+    public ResponseEntity<String> fundTransfer(@RequestBody FundRequest request) {
+        return ResponseEntity.ok(paymentService.fundTransfer(request));
     }
 }
