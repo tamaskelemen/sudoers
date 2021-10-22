@@ -1,6 +1,5 @@
 package hu.sudoers.junction.controller;
 
-import hu.sudoers.junction.dto.QuoteCreateRequest;
 import hu.sudoers.junction.service.BorderlessAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
