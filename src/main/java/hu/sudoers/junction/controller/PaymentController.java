@@ -1,6 +1,7 @@
 package hu.sudoers.junction.controller;
 
 import hu.sudoers.junction.dto.QuoteCreateRequest;
+import hu.sudoers.junction.dto.RecipientCreateRequest;
 import hu.sudoers.junction.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,11 @@ public class PaymentController {
 
     @PostMapping("/quote")
     public ResponseEntity<String> createQuote(@RequestBody QuoteCreateRequest request) {
-        paymentService.createQuote(request);
+        return ResponseEntity.ok(paymentService.createQuote(request));
+    }
 
-        return ResponseEntity.ok("test");
+    @PostMapping("/recipient")
+    public ResponseEntity<String> createRecipientAccount(@RequestBody RecipientCreateRequest request) {
+        return ResponseEntity.ok(paymentService.createRecipientAccount(request));
     }
 }
