@@ -10,6 +10,7 @@
     "@transferwise/icons": "^2.15.0",
     "@transferwise/neptune-css": "^10.0.5-beta.0",
     "currency-flags": "^3.2.1",
+    "postcss-custom-properties": "^12.0.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -41,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "react-scripts/postcss-preset-env/postcss-custom-properties": "^10.0.0"
   }
 }
