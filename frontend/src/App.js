@@ -4,7 +4,7 @@ import '@transferwise/components/build/main.css';
 
 import './App.css';
 import {Provider} from '@transferwise/components';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import SplashPage from './components/pages/SplashPage';
 import SmartConverter from './components/pages/SmartConverter';
 import Balance from './components/pages/Balance';
