@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 
@@ -24,6 +25,18 @@ public class BorderlessAccountService {
 
     @SneakyThrows
     public String checkAccountBalance(String profileId) {
-        return "asd";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.add("Authorization", "Bearer " + authToken);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(apiHost + "/v1/borderless-accounts")
+            .queryParam("profileId", profileId);
+
+        return restTemplate.exchange(
+            builder.toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(headers),
+            String.class
+        ).getBody();
     }
 }
