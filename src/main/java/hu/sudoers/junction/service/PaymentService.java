@@ -6,7 +6,6 @@ import hu.sudoers.junction.dto.RecipientCreateRequest;
 import hu.sudoers.junction.dto.TransferCreateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

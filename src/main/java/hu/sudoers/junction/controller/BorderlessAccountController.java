@@ -1,5 +1,7 @@
 package hu.sudoers.junction.controller;
 
+import hu.sudoers.junction.dto.ConversionRequest;
+import hu.sudoers.junction.dto.QuoteCreateRequest;
 import hu.sudoers.junction.service.BorderlessAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +17,10 @@ public class BorderlessAccountController {
     @GetMapping("/profiles/{profile_id}")
     public ResponseEntity<String> createQuote(@PathVariable ("profile_id") String profileId) {
         return ResponseEntity.ok(borderlessService.checkAccountBalance(profileId));
+    }
+
+    @PostMapping("/{borderlessAccountId}")
+    public ResponseEntity<String> conversion(@RequestBody ConversionRequest request, @PathVariable String borderlessAccountId) {
+        return ResponseEntity.ok(borderlessService.conversion(request, borderlessAccountId));
     }
 }
