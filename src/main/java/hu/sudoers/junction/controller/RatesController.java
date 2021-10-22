@@ -2,24 +2,29 @@ package hu.sudoers.junction.controller;
 
 import hu.sudoers.junction.entity.RateEntity;
 import hu.sudoers.junction.repository.RateRepository;
+import hu.sudoers.junction.service.RatesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping(value="/api/rates")
 public class RatesController {
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
     @Autowired
-    private RateRepository repository;
-    @RequestMapping(value = "/rates", produces = "application/json")
+    private RatesService ratesService;
+
+
+    @RequestMapping(produces = "application/json")
     @ResponseBody
     public List<RateEntity> list(
             @RequestParam(name = "source") String source,
@@ -34,6 +39,18 @@ public class RatesController {
         query.addCriteria(Criteria.where("date").gte(from).lte(to));
 
         return mongoTemplate.find(query, RateEntity.class);
+    }
+
+    @GetMapping("fetch")
+    public ResponseEntity<String> fetchExchangeRates(
+            @RequestParam String source,
+            @RequestParam String target,
+            @RequestParam ZonedDateTime time,
+            @RequestParam ZonedDateTime from,
+            @RequestParam ZonedDateTime to,
+            @RequestParam String group
+    ) {
+        return ResponseEntity.ok(ratesService.fetchRates(source, target, time, from, to, group));
     }
 
 }
