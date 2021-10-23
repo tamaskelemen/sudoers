@@ -339,8 +339,10 @@ const Navigation = ({children}: {children: any}) => {
                 </div>
               </div>
             </div>
-            <div className="container full-height-container__balance">
+            <div className="container full-height-container__balance_navigation">
+              <div>
               {children}
+              </div>
             </div>
           </div>
         </div>

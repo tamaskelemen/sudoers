@@ -1,9 +1,12 @@
 const axios = require('axios');
 const querystring = require('querystring');
-var baseUrl = "http://localhost:8080/api/rates?";
+var baseUrl = "http://localhost:8080";
 
 
-const chart = function (from, to, source, target) {
+/**
+ * Return the chart data as array.
+*/
+export const chart = (from, to, source, target) => {
 
     var params = {
         "from": from,
@@ -13,9 +16,8 @@ const chart = function (from, to, source, target) {
     }
 
     let queryString = querystring.stringify(params);
-    console.log(queryString);
 
-    const response = axios.get(baseUrl + queryString)
+    return axios.get(baseUrl + "/api/rates?" + queryString)
         .then(function (response) {
             // handle success
             console.log(response);
@@ -27,6 +29,50 @@ const chart = function (from, to, source, target) {
             return [];
           });
 
-}
+};
 
-chart("2017-10-01", "2018-11-01", "AED", "USD");
+export const setOrder = function(from, to, source, target, threshold, amount) {
+    var params = {
+        "from": from,
+        "to": to,
+        "source": source,
+        "target": target,
+        "amount": amount,
+        "threshold": threshold
+    }
+
+    return axios.post(baseUrl + "/api/order/create", params)
+         .then(function (response) {
+               // handle success
+               console.log(response);
+               return response;
+             })
+             .catch(function (error) {
+               // handle error
+               console.log(error);
+               return [];
+         });
+};
+
+//Returns how much you get by using tw
+export const disclaimer = function(source, target, amount) {
+    var params = {
+        "sourceCurrency": source,
+        "targetCurrency": target,
+        "sendAmount": amount
+    }
+
+    let queryString = querystring.stringify(params);
+
+    return axios.get(baseUrl + "/api/comparison/disclaimer?" + queryString)
+             .then(function (response) {
+                   // handle success
+                   console.log(response);
+                   return response;
+                 })
+                 .catch(function (error) {
+                   // handle error
+                   console.log(error);
+                   return [];
+             });
+}

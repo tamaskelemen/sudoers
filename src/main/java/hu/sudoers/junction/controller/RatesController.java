@@ -42,6 +42,7 @@ public class RatesController {
         return mongoTemplate.find(query, RateEntity.class);
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("fetch")
     public ResponseEntity<String> fetchExchangeRates(
             @RequestParam String source,

@@ -12,6 +12,7 @@ public class ComparisonController {
 
     private final ComparisonService comparisonService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/disclaimer")
     public ResponseEntity<String> createQuote(
         @RequestParam String sourceCurrency,
