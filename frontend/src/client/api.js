@@ -90,3 +90,15 @@ export const balances = function(profile_id) {
         })
 }
 
+export const orderList = function() {
+    let uri = "/api/order/list";
+    return axios.get(baseUrl+ uri)
+            .then(function (response) {
+                console.log(response)
+                return response;
+            })
+            .catch(function (error) {
+                console.log(error)
+                return;
+    })
+}
