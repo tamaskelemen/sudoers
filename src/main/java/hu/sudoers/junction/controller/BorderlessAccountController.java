@@ -14,6 +14,7 @@ public class BorderlessAccountController {
 
     private final BorderlessAccountService borderlessService;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/profiles/{profile_id}")
     public ResponseEntity<String> createQuote(@PathVariable ("profile_id") String profileId) {
         return ResponseEntity.ok(borderlessService.checkAccountBalance(profileId));
