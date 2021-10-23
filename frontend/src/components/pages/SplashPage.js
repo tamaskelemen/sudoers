@@ -3,31 +3,65 @@ import Navigation from '../navigation/SplashNavigation';
 
 class SplashPage extends PureComponent {
     componentDidMount() {
-        function randomInteger() {
-            return Math.floor(Math.random() * (1 - 4 + 1)) + 1;
+        var money_waste = false;
+
+        function animateValue(id, start, end, duration) {
+            var range = end - start;
+            var current = start;
+            var increment = end > start ? 1 : -1;
+            var stepTime = Math.abs(Math.floor(duration / range));
+            var obj = document.getElementById(id);
+            var timer = setInterval(function() {
+                current += increment;
+                obj.innerHTML = current.toLocaleString();
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        function mesint(id, start, end, duration) {
+            var range = end - start;
+            var current = start;
+
+            var increment_value = Math.floor(Math.random() * 100000)
+
+            var increment = end > start ? increment_value : 100;
+
+            var stepTime = Math.abs(Math.floor(duration / range));
+            var obj = document.getElementById(id);
+            var timer = setInterval(function() {
+                var random = Math.floor(Math.random() * 6)
+
+                if (random === 0) {
+                    current -= increment;
+                    money_waste = true;
+                    console.log();
+                } else {
+                    money_waste = false;
+                    current += increment;
+                }
+
+                obj.innerHTML = current.toLocaleString();
+
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
         }
 
         setTimeout(function () {
-            const obj_1 = document.getElementById("splash-page__satisfied-customers-h1"); //
-            const obj_2 = document.getElementById("splash-page__saved-money-h1"); // s
-            const obj_3 = document.getElementById("ssplash-page__opt-transactions"); //
+            mesint("splash-page__saved-money-h1", 158695467, 9586954679, 19999999999999);
 
-            function animateValue(obj, start, end, duration) {
-                let startTimestamp = null;
-
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    obj.innerHTML = Math.floor(progress * (end - start) + start);
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
+            if (money_waste == true) {
+                document.getElementById("splash-page__saved-money-h1").style.color = 'red';
+            } else {
+                document.getElementById("splash-page__saved-money-h1").style.color = '#37517e';
             }
 
-            animateValue(obj_1, 158695467, 99999999999999, 100000000000000000);
-        }, 1000)
+            animateValue("splash-page__satisfied-customers-h1", 27869546, 9586954679, 9999999999999);
+            animateValue("splash-page__opt-transactions", 34987657, 9586954679, 9999999999999);
+        }, 2000)
     }
   render() {
     return (
@@ -39,7 +73,7 @@ class SplashPage extends PureComponent {
                         <div className="splash-page__satisfied-customers">
                             <h1 className="splash-page__h1 splash-page__satisfied-customers-h1"
                                 id="splash-page__satisfied-customers-h1">
-                                158,695,467
+                                27,869,546
                             </h1>
                             <p className="splash-page__short-description">
                                 satisfied customers
@@ -57,7 +91,7 @@ class SplashPage extends PureComponent {
                         <div className="splash-page__opt-transactions">
                             <h1 className="splash-page__h1"
                                 id="splash-page__opt-transactions">
-                                987.657
+                                34,987,657
                             </h1>
                             <p className="splash-page__short-description">
                                 optimized transactions
