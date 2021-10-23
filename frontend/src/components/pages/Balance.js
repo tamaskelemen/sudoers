@@ -1,16 +1,22 @@
-import React, {PureComponent} from 'react';
-import Navigation from '../navigation/Navigation';
+import React from "react";
+import Navigation from '../navigation/BalanceNavigation';
+import ReactDOM from "react-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    useParams
+} from "react-router-dom";
 
-class Balance extends PureComponent {
-  render() {
+function Balance() {
+    let { balance_id } = useParams();
     return (
-      <div>
-        <Navigation>
-          Balance
-        </Navigation>
-      </div>
+        <div>
+            <Navigation>
+                Balance
+            </Navigation>
+        </div>
     );
-  }
 }
 
 Balance.propTypes = {};

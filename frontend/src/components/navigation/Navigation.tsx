@@ -41,7 +41,7 @@ const Navigation = ({children}: {children: any}) => {
               d="M4 9.5a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM8.5 7a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"></path><path
               d="M17 20.948V22h-2v-1.052c0-.732-.258-1.257-.658-1.51C13.369 18.82 11.515 18 8.5 18c-3.015 0-4.87.821-5.842 1.437-.4.254-.658.78-.658 1.511V22H0v-1.052c0-1.14.407-2.452 1.588-3.2C2.873 16.934 5.098 16 8.5 16c3.403 0 5.627.934 6.912 1.748 1.18.748 1.588 2.06 1.588 3.2z"></path></svg></span></span><span
               className="mobileNavItem__label">Recipients</span></a></li>
-            <li className="mobileNavItem"><a className="mobileNavItem__link" href="/account/"><span
+            <li className="mobileNavItem"><a className="mobileNavItem__link" href="/account/balances"><span
               className="mobileNavItem__icon"><span className="tw-icon tw-icon-profile "
                                                     aria-hidden="true" role="presentation"><svg
               width="24" height="24" fill="currentColor" focusable="false"><path fill-rule="evenodd"

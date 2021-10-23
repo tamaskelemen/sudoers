@@ -1,12 +1,14 @@
 import React, {PureComponent} from 'react';
-import Navigation from '../navigation/Navigation';
+import Navigation from '../navigation/SplashNavigation';
 
 class SplashPage extends PureComponent {
   render() {
     return (
       <div>
         <Navigation>
-          SplashPage
+            <div className="splash-page__container">
+
+            </div>
         </Navigation>
       </div>
     );

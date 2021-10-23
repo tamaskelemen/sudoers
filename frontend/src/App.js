@@ -9,6 +9,7 @@ import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import SplashPage from './components/pages/SplashPage';
 import SmartConverter from './components/pages/SmartConverter';
 import Balance from './components/pages/Balance';
+import IndexPage from './components/pages/IndexPage';
 
 function App() {
   return (
@@ -38,9 +39,12 @@ function App() {
             <Route path="/smartconverter">
               <SmartConverter/>
             </Route>
-            <Route path="/balance">
+            <Route path="/user/account/balances/:balance_id">
               <Balance/>
             </Route>
+            {/*<Route path="/">*/}
+            {/*  <IndexPage/>*/}
+            {/*</Route>*/}
           </Switch>
         </div>
       </Router>

@@ -45,3 +45,15 @@
     background-color: white;
   }
 }
+
+.full-height-container__balance_navigation--splash-page {
+  margin: 0 !important;;
+  padding-top: 24px !important;;
+  padding-left: 0 !important;;
+  max-width: none !important;;
+  padding-right: 0 !important;
+}
+
+.splash-page__container {
+  background-image: url(img/map.png);
+}
