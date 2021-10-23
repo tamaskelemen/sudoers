@@ -1,9 +1,7 @@
 package hu.sudoers.junction.controller;
 
 import hu.sudoers.junction.entity.RateEntity;
-import hu.sudoers.junction.repository.RateRepository;
 import hu.sudoers.junction.service.RatesService;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

@@ -1,6 +1,17 @@
 import React from 'react';
+import * as api from "../../client/api";
 
 const Navigation = ({children}: {children: any}) => {
+  let [balances, setBalances] = React.useState([]);
+
+  React.useEffect(function() {
+
+      api.balances(16297127).then(function(response) {
+        setBalances(response.data[0].balances)
+      });
+
+  }, []);
+
   return (
     <div className="balances-content">
       <div className="page-layout column-layout">
@@ -118,21 +129,28 @@ const Navigation = ({children}: {children: any}) => {
               <div className="balance-group">
                 <div className="balance-group__title">Balances</div>
                 <ul>
-                  <li>
-                    <div className="balance-item active"><a href="/user/account/balances/23375373/">
-                      <div className="avatar-container" aria-hidden="true">
-                        <div className="balance-avatar balance-avatar--sm balance-avatar--dark">
-                          <div
-                            className="tw-avatar tw-avatar--sm tw-avatar--thumbnail tw-avatar--dark">
-                            <div className="tw-avatar__content"
-                                 style={{backgroundColor: 'transparent'}}><img
-                              className="balance-avatar__round-currency-icon"
-                              src="https://wise.com/public-resources/assets/flags/square/usd.svg" alt=""/></div>
+                   { balances.map(data => {
+                     let avatar = "https://wise.com/public-resources/assets/flags/square/" + data.currency.toLowerCase() + ".svg";
+                     let amount = data.amount.value + " " + data.amount.currency;
+                     let url = "/#/user/account/balances/" + data.id + "/";
+
+                     return (<li>
+                      <div className="balance-item active"><a href={url}>
+                        <div className="avatar-container" aria-hidden="true">
+                          <div className="balance-avatar balance-avatar--sm balance-avatar--dark">
+                            <div
+                              className="tw-avatar tw-avatar--sm tw-avatar--thumbnail tw-avatar--dark">
+                              <div className="tw-avatar__content"
+                                   style={{backgroundColor: 'transparent'}}><img
+                                className="balance-avatar__round-currency-icon"
+                                src={avatar} alt=""/></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <span className="balance-item__balance-details">0 USD</span></a></div>
-                  </li>
+                        <span className="balance-item__balance-details">{amount}</span></a></div>
+                    </li>);
+                  })
+                }
                 </ul>
                 <a href="/flows/open-balance" className="balance-group__action"><span
                   className="tw-icon tw-icon-plus " aria-hidden="true" role="presentation"><svg
