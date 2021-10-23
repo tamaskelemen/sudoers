@@ -1,0 +1,21 @@
+.sequence.tw-calculator-breakdown--inverse .tw-calculator-breakdown__icon {
+    background-color: #f2f5f7;
+    border-color: #f2f5f7;
+}
+
+.sequence.tw-calculator-breakdown--inverse .tw-calculator-breakdown-item__left, .sequence.tw-calculator-breakdown--inverse .tw-calculator-breakdown-item__right,
+.sequence.tw-calculator-breakdown--inverse strong{
+    color: #2e4369
+}
+
+.sequence.tw-calculator-breakdown--inverse>li:before, .sequence.tw-calculator-breakdown--inverse>li:after {
+    background-color: #f2f5f7;
+}
+
+.sequence.tw-calculator-breakdown--detailed .tw-calculator-breakdown-item__left {
+    min-width: 0 !important;
+}
+
+#estimatedLabel {
+    /*color: #ffb717;*/
+}

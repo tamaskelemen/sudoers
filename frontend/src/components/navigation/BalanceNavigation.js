@@ -1,7 +1,7 @@
 import React from 'react';
 import * as api from "../../client/api";
 
-const Navigation = ({children}: {children: any}) => {
+const Navigation = ({children}) => {
   let [balances, setBalances] = React.useState([]);
 
   React.useEffect(function() {
