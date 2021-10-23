@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Line} from 'react-chartjs-2';
-import { format } from "date-fns";
+import {format} from 'date-fns';
 import {chart} from '../../client/api';
 import {convertDateToString} from '../../utils';
-import {DateLookup, Select, Size} from '@transferwise/components';
-import step from 'everpolate';
+import 'chartjs-adapter-date-fns';
 
 const LineChart = (props) => {
   const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = props;
@@ -31,16 +30,16 @@ const LineChart = (props) => {
   });
 
   useEffect(() => {
-    if (periodStart != null && periodEnd != null && (source.currency !== "" &&
-      source.currency !== undefined) && (target.currency !== "" && target.currency !== undefined)) {
-      const formattedPeriodStart = format(periodStart, "yyyy-MM-dd")
-      const formattedPeriodEnd = format(periodEnd, "yyyy-MM-dd")
+    if (periodStart != null && periodEnd != null && (source.currency !== '' &&
+      source.currency !== undefined) && (target.currency !== '' && target.currency !== undefined)) {
+      const formattedPeriodStart = format(periodStart, 'yyyy-MM-dd')
+      const formattedPeriodEnd = format(periodEnd, 'yyyy-MM-dd')
       chart(formattedPeriodStart, formattedPeriodEnd, source.currency, target.currency)
         .then(response => {
           let result = convertResponseToData(response);
           // let copy = result.map(entry => {entry.x});
           let res = result.map(item => item.x = new Date(item.x).getTime());
-          let last = res[res.length - 1 ];
+          let last = res[res.length - 1];
           let newElements = [];
           for (let i = 0; i < 10; i++) {
             last = last + 86400000;
@@ -59,13 +58,15 @@ const LineChart = (props) => {
   }, [periodStart, periodEnd, source, target]);
 
   const convertResponseToData = (response) => {
-    return (response.data || []).map(entry => ({ x: entry.date, y: entry.rate }));
+    return (response.data || [])
+      .filter((item, index) => index % 3 === 0)
+      .map(entry => ({ x: entry.date, y: entry.rate }));
   }
 
   const data = {
     datasets: [
       {
-        label: 'Cubic interpolation (monotone)',
+        label: `${source.label}-${target.label}`,
         data: datapoints,
         borderColor: '#00b9ff',
         fill: false,
@@ -76,53 +77,51 @@ const LineChart = (props) => {
   };
 
   const options = {
-    type: 'line',
-    data: data,
     plugins: {
       legend: {
         display: false,
-        tooltip: true,
       }
     },
-    options: {
-      // animations: {
-      //   tension: {
-      //     duration: 1000,
-      //     easing: 'linear',
-      //     from: 1,
-      //     to: 0,
-      //     loop: true
-      //   }
-      // },
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: {
-        intersect: false,
+    elements: {
+      line: {
+        fill: false,
       },
-      scales: {
-        x: {
-          type: 'time',
-          display: true,
-          title: {
-            display: true
-          },
-          // time: {
-          //   unit: 'day'
-          // }
+      point: {
+        radius: 0,
+      }
+    },
+    // spanGaps: 1000 * 60 * 60 * 24 * 7, // 2 days
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      intersect: false,
+    },
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'month'
         },
-        y: {
+        grid: {
+          display: false,
+          drawTicks: false,
+        }
+      },
+      y: {
+        display: true,
+        title: {
           display: true,
-          title: {
-            display: true,
-            text: 'Value'
-          },
+          text: 'Rate'
+        },
+        grid: {
+          color: '#f2f5f7'
         }
       }
-    },
+    }
   };
 
   return (
-    <div>
+    <div className="m-a-3">
       {/*<DateLookup*/}
       {/*    value={periodStart}*/}
       {/*    min={null}*/}
@@ -196,7 +195,7 @@ const LineChart = (props) => {
       {/*      { value: 3, label: 'USD', currency: 'USD' },*/}
       {/*    ]}*/}
       {/*/>*/}
-      <Line data={data} options={options} height={300}/>
+      <Line data={data} options={options} height={500}/>
     </div>
   );
 };
