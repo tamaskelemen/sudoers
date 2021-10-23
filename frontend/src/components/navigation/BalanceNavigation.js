@@ -1,8 +1,58 @@
 import React from 'react';
 import * as api from "../../client/api";
 import BalanceList from '../navigation/BalanceList';
+import {useParams} from "react-router-dom";
 
 const Navigation = ({children}) => {
+    let { balance_id } = useParams();
+
+    let [balances, setBalances] = React.useState([]);
+
+    let current_balance;
+    let longCurrency;
+    let image;
+    let amount;
+    let currency;
+
+    React.useEffect(function() {
+        api.balances(16297127).then(function(response) {
+            setBalances(response.data[0].balances);
+
+        });
+
+    }, []);
+
+
+    current_balance = balances.find(x => x.id == balance_id);
+    console.log("nanaa" + typeof current_balance);
+    if (typeof current_balance !== "undefined") {
+
+//         current_balance = balances.find(x => x.id == balance_id);
+
+                console.log("szopdki:" + current_balance.currency)
+
+                if (current_balance.currency == "USD") {
+                    longCurrency = "American dollar";
+                }
+                if (current_balance.currency == "AUD") {
+                    longCurrency = "Australian dollar";
+                }
+                if (current_balance.currency == "EUR") {
+                    longCurrency = "Euro";
+                }
+                if (current_balance.currency == "GBP") {
+                    longCurrency = "British pound";
+                }
+
+                image = "https://wise.com/public-resources/assets/flags/square/" + current_balance.currency.toLowerCase() + ".svg"
+                amount = current_balance.amount.value;
+                currency = current_balance.amount.currency;
+
+                console.log("long geci" + longCurrency);
+    }
+
+
+
 
   return (
     <div className="balances-content">
@@ -146,239 +196,130 @@ const Navigation = ({children}) => {
             d="M9.131 8l5.435-5.434-1.132-1.132L8 6.87 2.566 1.434 1.434 2.566 6.87 8l-5.435 5.434 1.132 1.132L8 9.13l5.434 5.435 1.132-1.132L9.13 8z"></path></svg></span>
           </button>
         </div>
-        <div className="column-layout-main">
-          {/*<nav className="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title">*/}
-          {/*  <div className="container navbar-container m-l-0 p-t-0">*/}
-          {/*    <div className="header-container">*/}
-          {/*    </div>*/}
-          {/*    <ul className="nav navbar-nav notification-center">*/}
-          {/*      <li className="">*/}
-          {/*        <button className="notification-toggle dropdown-toggle" type="button"*/}
-          {/*                aria-haspopup="true" aria-expanded="false"><span className="sr-only">Toggle inbox</span>*/}
-          {/*          <div className="notification-center__icon-container"><span*/}
-          {/*            className="tw-icon tw-icon-notification " aria-hidden="true"*/}
-          {/*            role="presentation"><svg width="24" height="24" fill="currentColor"*/}
-          {/*                                     focusable="false"><path fill-rule="evenodd"*/}
-          {/*                                                             clip-rule="evenodd"*/}
-          {/*                                                             d="M12 2a7 7 0 00-7 7v4.405L3.602 17.5h16.796L19 13.405V9a7 7 0 00-7-7zM7 9a5 5 0 0110 0v4.738l.602 1.762H6.398L7 13.738V9z"></path><path*/}
-          {/*            d="M12 22a2.4 2.4 0 01-2.4-2.4h4.8A2.4 2.4 0 0112 22z"></path></svg></span>*/}
-          {/*          </div>*/}
-          {/*        </button>*/}
-          {/*      </li>*/}
-          {/*    </ul>*/}
-          {/*    <nav className="profile-menu nav navbar-nav navbar-right">*/}
-          {/*      <button type="button" aria-expanded="false" className="profile-name btn-unstyled">*/}
-          {/*        <span className="sr-only">Open or close account menu</span>*/}
-          {/*        <div className="circle circle-inverse circle__user-avatar">TB</div>*/}
-          {/*        <h5 className="hidden-xs hidden-sm hidden-md m-l-1">Test Business</h5><span*/}
-          {/*        className="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom m-l-1"*/}
-          {/*        aria-hidden="true" role="presentation"><svg width="16" height="16"*/}
-          {/*                                                    fill="currentColor" focusable="false"><path*/}
-          {/*        fill-rule="evenodd" clip-rule="evenodd"*/}
-          {/*        d="M8 4l-6.6 6.653L2.537 11.8 8 6.293l5.463 5.507 1.137-1.147L8 4z"></path></svg></span>*/}
-          {/*      </button>*/}
-          {/*    </nav>*/}
-          {/*  </div>*/}
-          {/*</nav>*/}
-          <nav
-              className="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title">
-            <div className="container navbar-container m-l-0 p-t-0">
-              <div className="header-container">
-                <div className="css-vrlw6k">
-                  <div className="balance-avatar balance-avatar--md css-hvb60">
-                    <div className="tw-avatar tw-avatar--md tw-avatar--thumbnail tw-avatar--light">
-                      <div className="tw-avatar__content"
-                           style={{backgroundColor: 'transparent'}}><img
-                          className="balance-avatar__round-currency-icon"
-                          src="/public-resources/assets/flags/square/usd.svg" alt=""/></div>
-
-                        <img className="balance-avatar__round-currency-icon"
-                          src="/public-resources/assets/flags/square/aud.svg" alt=""/>
-                        </div>
+        <div class="column-layout-main">
+           <nav class="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title">
+              <div class="container navbar-container m-l-0 p-t-0">
+                 <div class="header-container">
+                    <div class="css-vrlw6k">
+                       <div class="balance-avatar balance-avatar--md css-hvb60">
+                          <div class="tw-avatar tw-avatar--md tw-avatar--thumbnail tw-avatar--light">
+                             <div class="tw-avatar__content" style={{backgroundColor: 'transparent'}}>
+                             <img class="balance-avatar__round-currency-icon" src={image} alt="" /></div>
+                          </div>
+                       </div>
+                       <div class="css-zg1vud">
+                          <div class="css-13lnwmz">{longCurrency}</div>
+                          <div class="css-1cg9o3l">
+                             <h2 class="css-gt3lwo">{amount} {currency} </h2>
+                          </div>
+                       </div>
                     </div>
-                  </div>
-                  <div className="css-zg1vud">
-                    <div className="css-13lnwmz">Australian dollar</div>
-                    <div className="css-1cg9o3l"><h2 className="css-gt3lwo">4,000,000 AUD</h2></div>
-                  </div>
-                </div>
+                 </div>
+                 <ul class="nav navbar-nav notification-center">
+                    <li class="">
+                       <button class="notification-toggle dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false">
+                          <span class="sr-only">Toggle inbox</span>
+                          <div class="notification-center__icon-container">
+                             <span class="tw-icon tw-icon-notification " aria-hidden="true" role="presentation">
+                                <svg width="24" height="24" fill="currentColor" focusable="false">
+                                   <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2a7 7 0 00-7 7v4.405L3.602 17.5h16.796L19 13.405V9a7 7 0 00-7-7zM7 9a5 5 0 0110 0v4.738l.602 1.762H6.398L7 13.738V9z"></path>
+                                   <path d="M12 22a2.4 2.4 0 01-2.4-2.4h4.8A2.4 2.4 0 0112 22z"></path>
+                                </svg>
+                             </span>
+                          </div>
+                       </button>
+                    </li>
+                 </ul>
+                 <nav class="profile-menu nav navbar-nav navbar-right">
+                    <button type="button" aria-expanded="false" class="profile-name btn-unstyled">
+                       <span class="sr-only">Open or close account menu</span>
+                       <div class="circle circle-inverse circle__user-avatar">tk</div>
+                       <h5 class="hidden-xs hidden-sm hidden-md m-l-1">tamas kelemen</h5>
+                       <span class="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom m-l-1" aria-hidden="true" role="presentation">
+                          <svg width="16" height="16" fill="currentColor" focusable="false">
+                             <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4l-6.6 6.653L2.537 11.8 8 6.293l5.463 5.507 1.137-1.147L8 4z"></path>
+                          </svg>
+                       </span>
+                    </button>
+                 </nav>
               </div>
-              <ul className="nav navbar-nav notification-center">
-                <li className="">
-                  <button className="notification-toggle dropdown-toggle" type="button" aria-haspopup="true"
-                          aria-expanded="false"><span className="sr-only">Toggle inbox</span>
-                    <div className="notification-center__icon-container"><span className="tw-icon tw-icon-notification "
-                                                                               aria-hidden="true" role="presentation"><svg
-                        width="24" height="24" fill="currentColor" focusable="false"><path fill-rule="evenodd"
-                                                                                           clip-rule="evenodd"
-                                                                                           d="M12 2a7 7 0 00-7 7v4.405L3.602 17.5h16.796L19 13.405V9a7 7 0 00-7-7zM7 9a5 5 0 0110 0v4.738l.602 1.762H6.398L7 13.738V9z"></path><path
-                        d="M12 22a2.4 2.4 0 01-2.4-2.4h4.8A2.4 2.4 0 0112 22z"></path></svg></span></div>
-                  </button>
-                </li>
-              </ul>
-              <nav className="profile-menu nav navbar-nav navbar-right">
-                <button type="button" aria-expanded="false" className="profile-name btn-unstyled"><span
-                    className="sr-only">Open or close account menu</span>
-                  <div className="circle circle-inverse circle__user-avatar">dd</div>
-                  <h5 className="hidden-xs hidden-sm hidden-md m-l-1">dddddd dddddd</h5><span
-                      className="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom m-l-1" aria-hidden="true"
-                      role="presentation"><svg width="16" height="16" fill="currentColor" focusable="false"><path
-                      fill-rule="evenodd" clip-rule="evenodd"
-                      d="M8 4l-6.6 6.653L2.537 11.8 8 6.293l5.463 5.507 1.137-1.147L8 4z"></path>
-                      </svg>
-                </span>
-                </button>
-              </nav>
-          </nav>
-          <div className="container-content">
-            <div className="fixed-top__balances-actionbar fixed-top-container__balances-actionbar">
-              <div className="nav-toolbar nav-toolbar--compact p-b-2">
-                <div className="container m-l-0 hidden-xs">
-                  <div className="action-buttons p-l-0 pull-left">
-                    <div className="btn-toolbar btn-toolbar-sm line-height-0">
-                      <div className="btn-block">
-                        <button type="button"
-                                className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Add
-                        </button>
-                        <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
-                          <span className="tw-tooltip-container" aria-describedby="zixi2b"><div
-                            className="tooltip fade bottom " role="tooltip" id="zixi2b"
-                            style={{top: '32px; left: 45px'}}><div className="tooltip-arrow"></div><div
-                            className="tooltip-inner">You don't have any USD to convert.</div></div><button
-                            type="button"
-                            className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
-                            disabled>Convert</button></span></div>
-                        <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
-                          <span className="tw-tooltip-container" aria-describedby="1qpcu"><div
-                            className="tooltip fade bottom " role="tooltip" id="1qpcu"
-                            style={{top: '32px; left: 129.5px;'}}><div
-                            className="tooltip-arrow"></div><div
-                            className="tooltip-inner">You don't have any USD to send.</div></div><button
-                            type="button"
-                            className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
-                            disabled>Send</button></span></div>
-                        <button type="button"
-                                className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
-                                disabled>Request
-                        </button>
-                        <button type="button"
-                                className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2 dropdown-toggle btn-dropdown d-flex"
-                                aria-label="Open menu"><span
-                          className="hidden-xs hidden-sm">More</span><span
-                          className="css-q6fkr2"><span className="tw-icon tw-icon-more "
-                                                       aria-hidden="true" role="presentation"><svg
-                          width="16" height="16" fill="currentColor" focusable="false"><path
-                          fill-rule="evenodd" clip-rule="evenodd"
-                          d="M1.58 9.58a1.58 1.58 0 100-3.16 1.58 1.58 0 000 3.16zM16 8a1.58 1.58 0 11-3.16 0A1.58 1.58 0 0116 8zM8 9.58a1.58 1.58 0 100-3.16 1.58 1.58 0 000 3.16z"></path></svg></span></span>
-                        </button>
-                        <div className="pull-left btn-group m-x-0 m-b-0">
-                          <ul className="dropdown-menu dropdown-menu-md css-nkhozk" role="menu">
-                            <li><a role="button" href="#statement-drawer">Statements</a><a
-                              role="button" href="/partner-integration">Connect to accounting</a>
-                            </li>
-                            <li><a href="/account/direct-debits/" className=" dropdown-item">Direct
-                              Debits</a></li>
-                            <li><a type="button" href="#close-balance" className=" dropdown-item">Close
-                              balance</a></li>
-                          </ul>
-                        </div>
-                      </div>
+           </nav>
+           <div class="container-content">
+              <div class="fixed-top__balances-actionbar fixed-top-container__balances-actionbar">
+                 <div class="nav-toolbar nav-toolbar--compact p-b-2">
+                    <div class="container m-l-0 hidden-xs">
+                       <div class="action-buttons p-l-0 pull-left">
+                          <div class="btn-toolbar btn-toolbar-sm line-height-0">
+                             <div class="btn-block">
+                                <button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Add</button>
+                                <button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Convert</button>
+                                <button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Send</button>
+                                <a href="/#/splashpage" class="btn btn-sm btn-block btn-success">Smart exchange</a>
+                            </div>
+                          </div>
+                       </div>
+                       <div class="action-buttons p-l-0 pull-right">
+                          <div class="btn-toolbar btn-toolbar-sm line-height-0">
+                             <div class="btn-block"><button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Statements</button><button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Direct Debits</button></div>
+                          </div>
+                       </div>
                     </div>
-                  </div>
-                </div>
-                <div className="container m-l-0 visible-xs">
-                  <div className="action-buttons p-l-0">
-                    <div className="btn-toolbar btn-toolbar-sm line-height-0">
-                      <button type="button"
-                              className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Add
-                      </button>
-                      <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
-                        <span className="tw-tooltip-container" aria-describedby="kihshp"><div
-                          className="tooltip fade bottom " role="tooltip" id="kihshp"
-                          style={{top: '0px; left: 0px'}}><div className="tooltip-arrow"></div><div
-                          className="tooltip-inner">You don't have any USD to convert.</div></div><button
-                          type="button"
-                          className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
-                          disabled>Convert</button></span></div>
-                      <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
-                        <span className="tw-tooltip-container" aria-describedby="a6g19b"><div
-                          className="tooltip fade bottom " role="tooltip" id="a6g19b"
-                          style={{top: '0px; left: 0px;'}}><div className="tooltip-arrow"></div><div
-                          className="tooltip-inner">You don't have any USD to send.</div></div><button
-                          type="button"
-                          className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
-                          disabled>Send</button></span></div>
-                      <button type="button"
-                              className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
-                              disabled>Request
-                      </button>
-                      <button type="button"
-                              className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2 dropdown-toggle btn-dropdown d-flex"
-                              aria-label="Open menu"><span
-                        className="hidden-xs hidden-sm">More</span><span
-                        className="css-q6fkr2"><span className="tw-icon tw-icon-more "
-                                                     aria-hidden="true" role="presentation"><svg
-                        width="16" height="16" fill="currentColor" focusable="false"><path
-                        fill-rule="evenodd" clip-rule="evenodd"
-                        d="M1.58 9.58a1.58 1.58 0 100-3.16 1.58 1.58 0 000 3.16zM16 8a1.58 1.58 0 11-3.16 0A1.58 1.58 0 0116 8zM8 9.58a1.58 1.58 0 100-3.16 1.58 1.58 0 000 3.16z"></path></svg></span></span>
-                      </button>
-                      <div className="pull-left btn-group m-x-0 m-b-0">
-                        <ul className="dropdown-menu dropdown-menu-md css-nkhozk" role="menu">
-                          <li><a role="button" href="#statement-drawer">Statements</a><a
-                            role="button" href="/partner-integration">Connect to accounting</a></li>
-                          <li><a href="/account/direct-debits/" className=" dropdown-item">Direct
-                            Debits</a></li>
-                          <li><a type="button" href="#close-balance" className=" dropdown-item">Close
-                            balance</a></li>
-                        </ul>
-                      </div>
-                      <div className="dropdown accounting-dropdown">
-                        <button type="button"
-                                className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
-                                data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">Accounting
-                        </button>
-                        <div className="dropdown-menu dropdown-menu-right dropdown-menu-md"
-                             aria-labelledby="dropdownMenuButton">
-                          <li><a className="dropdown-item" role="button"
-                                 href="#statement-drawer">Statements</a></li>
-                          <li><a className="dropdown-item" role="button"
-                                 href="/partner-integration">Connect to accounting</a></li>
-                        </div>
-                      </div>
-                      <button type="button"
-                              className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Direct
-                        Debits
-                      </button>
-                      <button type="button"
-                              className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2 dropdown-toggle btn-dropdown d-flex"
-                              aria-label="Open menu"><span
-                        className="hidden-xs hidden-sm">More</span><span
-                        className="css-q6fkr2"><span className="tw-icon tw-icon-more "
-                                                     aria-hidden="true" role="presentation"><svg
-                        width="16" height="16" fill="currentColor" focusable="false"><path
-                        fill-rule="evenodd" clip-rule="evenodd"
-                        d="M1.58 9.58a1.58 1.58 0 100-3.16 1.58 1.58 0 000 3.16zM16 8a1.58 1.58 0 11-3.16 0A1.58 1.58 0 0116 8zM8 9.58a1.58 1.58 0 100-3.16 1.58 1.58 0 000 3.16z"></path></svg></span></span>
-                      </button>
-                      <div className="pull-left btn-group m-x-0 m-b-0">
-                        <ul className="dropdown-menu dropdown-menu-md css-nkhozk" role="menu">
-                          <li><a role="button" href="#statement-drawer">Statements</a><a
-                            role="button" href="/partner-integration">Connect to accounting</a></li>
-                          <li><a href="/account/direct-debits/" className=" dropdown-item">Direct
-                            Debits</a></li>
-                          <li><a type="button" href="#close-balance" className=" dropdown-item">Close
-                            balance</a></li>
-                        </ul>
-                      </div>
+                    <div class="container m-l-0 visible-xs">
+                       <div class="action-buttons p-l-0">
+                          <div class="btn-toolbar btn-toolbar-sm line-height-0"><button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Add</button><button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Convert</button><button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Send</button><button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Statements</button><button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Direct Debits</button></div>
+                       </div>
                     </div>
-                  </div>
-                </div>
+                 </div>
               </div>
-            </div>
-            <div className="container full-height-container__balance">
-              {children}
-            </div>
-          </div>
+              <div class="container full-height-container__balance">
+                 <div class="promotion-container">
+                    <tw-activation-code-notifications can-manage-verification="props.canManageVerification" class="ng-scope ng-isolate-scope">
+                    </tw-activation-code-notifications>
+                 </div>
+                 <div class="bank-details-container">
+                    <ul class="list-group panel-list-group list-group-slide-out list-group-active">
+                       <li class="list-group-item p-a-0 inactive">
+                          <div class="p-a-panel" role="button" tabindex="0">
+                             <div class="media">
+                                <div class="bank-details-left">
+                                   <div class="circle circle-sm circle-responsive circle-inverse">
+                                      <span class="tw-icon tw-icon-bank center-icon" aria-hidden="true" role="presentation">
+                                         <svg width="24" height="24" fill="currentColor" focusable="false">
+                                            <path d="M22.003 9.408l-10-7.405-10 7.405 1.195 1.595 8.805-6.52 8.805 6.52 1.195-1.595z"></path>
+                                            <path d="M13 10v10h4v-7h2v7h2v2H3v-2h2v-7h2v7h4V10h2z"></path>
+                                         </svg>
+                                      </span>
+                                   </div>
+                                   <div class="flag-container"><img class="round-currency-flag-icon" src="https://wise.com/public-resources/assets/flags/square/aud.svg" alt="currency-flag"/></div>
+                                </div>
+                                <div class="media-body">
+                                   <div class="text-xs-nowrap text-ellipsis h5">Get account details for your AUD balance</div>
+                                   <small>With account details, you can start receiving bank transfers straight to this balance. You’ll get an account number and BSB.</small>
+                                </div>
+                                <div class="media-right balance-overview__chevron-container text-info">
+                                   <span class="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom" aria-hidden="true" role="presentation">
+                                      <svg width="16" height="16" fill="currentColor" focusable="false">
+                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4l-6.6 6.653L2.537 11.8 8 6.293l5.463 5.507 1.137-1.147L8 4z"></path>
+                                      </svg>
+                                   </span>
+                                </div>
+                             </div>
+                          </div>
+                       </li>
+                    </ul>
+                 </div>
+                 <div class="m-t-section-3 m-b-section-3">
+                    <div class="row">
+                       <div class="text-xs-center p-l-3 p-r-3 css-175e4ah">
+                          <img src="https://wise.com/public-resources/assets/illustrations/empty_state_activity.svg" alt="Illustration empty state" class="m-y-section-1"/>
+                          <div class="m-t-3 m-b-3">
+                             <p>You don't have any AUD transactions yet. When you do, they'll appear here.</p>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
         </div>
       </div>
     </div>
