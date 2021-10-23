@@ -10,10 +10,10 @@ const generatePredictions = (points, dueDate, risk = 0.001, frequency = 3) => {
   dateInFuture.setDate(dateInFuture.getDate() + 60)
 
   const lastDate = new Date('2021-10-01');
-  let lastRate = parseFloat(points[points.length - 1].y);
+  let lastRate = parseFloat(points.length ? points[points.length - 1].y : '');
   const prediction = [];
 
-  while (lastDate <= (dueDate || dateInFuture)) {
+  while (lastDate <= (dueDate || dateInFuture) && prediction.length < 200) {
     const newRate = lastRate * (1 - ((Math.random() * 10 - 5) * risk))
 
     prediction.push({ x: convertDateToString(lastDate), y: newRate })
@@ -26,11 +26,24 @@ const generatePredictions = (points, dueDate, risk = 0.001, frequency = 3) => {
     .filter((item, index) => index % frequency === 0);
 }
 
+const getBestRatePoints = (data, points) => {
+  const bestRate = points.reduce((best, point) => Math.max(best, parseFloat(point.y)), 0)
+
+  const startDate = data[0].x;
+  const endDate = points[points.length - 1].x
+
+  return [{ x: startDate, y: bestRate }, { x: endDate, y: bestRate }]
+}
+
+const getBestRate = (bestRatePoints) => bestRatePoints[0].y
+
 const LineChart = (props) => {
   const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = props;
 
   const [datapoints, setDatapoints] = useState([]);
   const [predictedDataPoints, setPredictedDataPoints] = useState([]);
+  const [predictedBestRatePoints, setPredictedBestRatePoints] = useState(undefined);
+
   const [periodStart, setPeriodStart] = React.useState(new Date());
   const [periodEnd, setPeriodEnd] = React.useState(new Date());
   const [ssource, setSsource] = React.useState({
@@ -53,7 +66,11 @@ const LineChart = (props) => {
         const points = generatePredictions(data, dueDate)
         setPredictedDataPoints(points);
 
-        // const
+        const bestRatePoints = getBestRatePoints(data, points);
+        setPredictedBestRatePoints(bestRatePoints);
+
+        const bestRate = getBestRate(bestRatePoints);
+        setRate(bestRate)
       })
   }, [source, target, dueDate])
 
@@ -109,7 +126,17 @@ const LineChart = (props) => {
         cubicInterpolationMode: 'monotone',
         tension: 0.8,
         borderDash: [5, 5],
+      },
+      {
+        label: `${source.label}-${target.label} Best`,
+        data: predictedBestRatePoints,
+        borderColor: '#37517e',
+        fill: false,
+        tension: 0.8,
+        borderWidth: 2,
+        borderDash: [5, 5],
       }
+
     ]
   };
 

@@ -7,7 +7,7 @@ function BalanceList() {
   React.useEffect(function() {
 
       api.balances(16297127).then(function(response) {
-        setBalances(response.data[0].balances)
+        setBalances(response ? response.data[0].balances : [])
       });
 
   }, []);

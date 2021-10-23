@@ -25,9 +25,9 @@ class Form extends PureComponent {
         searchable: 'Spain, Germany, France, Austria',
       },
       limit: '',
-      amount: 1000,
       smartConversion: true,
-      dueDate: ''
+      dueDate: '',
+      calculation: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,6 +36,17 @@ class Form extends PureComponent {
     this.changeAmount = this.changeAmount.bind(this);
     this.setCheck = this.setCheck.bind(this);
     this.setDoDate = this.setDoDate.bind(this);
+  }
+
+  componentDidMount() {
+    this.doCalculation('source', 1000);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.rate !== this.props.rate) {
+      this.doCalculation('source', 1000);
+      this.setState({ limit: Number.parseFloat(this.props.rate).toPrecision(4) })
+    }
   }
 
   handleSubmit() {
@@ -67,10 +78,47 @@ class Form extends PureComponent {
     this.setState({ amount: event });
   }
 
+  doCalculation(type, amount) {
+    if (type === 'source') {
+      const sourceAmount = amount
+      const cost = sourceAmount * 0.0075;
+      const weConvert = sourceAmount - cost;
+      const targetAmount = weConvert * this.props.rate;
+      this.setState({
+        calculation: {
+          sourceAmount,
+          cost,
+          weConvert,
+          targetAmount
+        }
+      })
+    } else {
+      const targetAmount = amount
+      const weConvert = targetAmount / this.props.rate;
+      const cost = weConvert * 0.0075;
+      const sourceAmount = weConvert + cost;
+      this.setState({
+        calculation: {
+          sourceAmount,
+          cost,
+          weConvert,
+          targetAmount
+        }
+      })
+    }
+  }
+
   render() {
     const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = this.props;
     const { recurring } = this.props;
-    const { smartConversion, limit, amount } = this.state;
+    const {
+      smartConversion, limit, amount, calculation: {
+        sourceAmount,
+        cost,
+        weConvert,
+        targetAmount
+      }
+    } = this.state;
 
     return (
       <div className="m-a-2">
@@ -79,9 +127,9 @@ class Form extends PureComponent {
             <label htmlFor="money-input">You'll convert</label>
             <MoneyInput
               id="money-input"
-              amount={1000}
+              amount={sourceAmount}
               size="lg"
-              onAmountChange={value => console.log('amount changed', value)}
+              onAmountChange={(amount) => this.doCalculation('source', amount)}
               onCurrencyChange={() => alert('currency changed')}
               addon={null}
               searchPlaceholder="Type a currency or country"
@@ -90,7 +138,7 @@ class Form extends PureComponent {
               currencies={[
                 {
                   header: 'Popular currencies',
-                },{
+                }, {
                   value: 'USD',
                   label: 'USD',
                   note: 'US Dollar',
@@ -189,13 +237,17 @@ class Form extends PureComponent {
           {
             !smartConversion && (
               <div className="form-group m-t-2">
-                <label className="control-label d-inline" htmlFor="90007848">Conversion price</label>
+                <label className="control-label d-inline" htmlFor="90007848">Trigger price</label>
                 <input type="number" className="form-control" value={this.state.limit} onChange={this.changeLimit}/>
               </div>
             )
           }
 
-          <Steps/>
+          <Steps rate={Number.parseFloat(rate).toPrecision(4)}
+                 smartConversion={smartConversion}
+                 cost={`${Number.parseFloat(cost).toPrecision(4)} ${source.value}`}
+                 weConvert={`${Number.parseFloat(weConvert).toPrecision(4)} ${source.value}`}
+          />
 
           {/*<label id="labelID" htmlFor="switchId">*/}
           {/*  Use limit mode:*/}
@@ -223,9 +275,9 @@ class Form extends PureComponent {
             <label htmlFor="money-input">You'll receive</label>
             <MoneyInput
               id="money-input"
-              amount={amount}
+              amount={targetAmount}
               size="lg"
-              onAmountChange={this.changeAmount}
+              onAmountChange={(amount) => this.doCalculation('target', amount)}
               onCurrencyChange={this.changeTargetCurrency}
               addon={null}
               searchPlaceholder="Type a currency or country"
