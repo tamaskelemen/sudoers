@@ -103,3 +103,21 @@ export const orderList = function() {
                 return;
     })
 }
+
+export const conversion = function (borderlessAccountId, quoteId) {
+    let uri = "/api/borderless-accounts";
+    return axios.post(baseUrl + uri + borderlessAccountId, {
+        quoteId: quoteId
+    });
+}
+
+export const createQuote = function(sourceCurrency, targetCurrency, sourceAmount, profile) {
+    let uri = "/api/payment/quote";
+    return axios.post(baseUrl + uri, {
+        sourceCurrency,
+        targetCurrency,
+        sourceAmount,
+        profile,
+        payOut: 'BALANCE',
+    });
+}

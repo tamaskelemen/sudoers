@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Line} from 'react-chartjs-2';
-import { format } from "date-fns";
+import {format} from 'date-fns';
 import {chart} from '../../client/api';
 import {convertDateToString} from '../../utils';
+import 'chartjs-adapter-date-fns';
 import {DateLookup, Select, Size} from '@transferwise/components';
+import { LinearRegression } from 'js-regression';
 import step from 'everpolate';
+import Regression from "./Regression";
 
 const LineChart = (props) => {
   const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = props;
@@ -31,41 +34,78 @@ const LineChart = (props) => {
   });
 
   useEffect(() => {
-    if (periodStart != null && periodEnd != null && (source.currency !== "" &&
-      source.currency !== undefined) && (target.currency !== "" && target.currency !== undefined)) {
-      const formattedPeriodStart = format(periodStart, "yyyy-MM-dd")
-      const formattedPeriodEnd = format(periodEnd, "yyyy-MM-dd")
-      chart(formattedPeriodStart, formattedPeriodEnd, source.currency, target.currency)
-        .then(response => {
-          let result = convertResponseToData(response);
-          // let copy = result.map(entry => {entry.x});
-          let res = result.map(item => item.x = new Date(item.x).getTime());
-          let last = res[res.length - 1 ];
-          let newElements = [];
-          for (let i = 0; i < 10; i++) {
-            last = last + 86400000;
-
-            newElements.push(last);
-          }
-          console.log(newElements)
-          // newElements.forEach(item => {
-          //   result.push({x: format(new Date(item), 'yyyy-MM-dd'), y: step(item, res, result.map(item => item.y))})
-          // })
-          // let step = step(newElements[1], res, result.map(item => item.y));
-          console.log();
-          setDatapoints(result);
-        });
-    }
+      if (periodStart != null && periodEnd != null && (source.currency !== "" &&
+          source.currency !== undefined) && (target.currency !== "" && target.currency !== undefined)) {
+          const formattedPeriodStart = format(periodStart, "yyyy-MM-dd")
+          const formattedPeriodEnd = format(periodEnd, "yyyy-MM-dd")
+          chart(formattedPeriodStart, formattedPeriodEnd, source.currency, target.currency)
+            .then(response => {
+                let result = convertResponseToData(response);
+                setDatapoints(result);
+                // let res = new Array(...result);
+                // const timestamps = res.map(item => new Date(item.x).getTime());
+                //
+                // let last = timestamps[timestamps.length - 1 ];
+                // let newElements = [];
+                // for (let i = 0; i < 10; i++) {
+                //     last = last + 86400000;
+                //     newElements.push(last);
+                // }
+                //
+                // let lastIndex = timestamps.length;
+                // const nextDaysIndexes = [];
+                // for (let i = 0; i < 10; i++) {
+                //     nextDaysIndexes.push(lastIndex++);
+                // }
+                // // const yValue = linear(nextDaysIndexes, timestamps, result.map(item => item.y));
+                // let dayIndexes = Array.from(Array(timestamps.length)
+                //     .keys());
+                //
+                // var regression = new LinearRegression({
+                //     alpha: 0.001, //
+                //     iterations: 300,
+                //     lambda: 0.0
+                // });
+                //
+                // const multipliedExchangeRates = result.map(item => {return item.y * 1000000;});
+                // // const model = step(nextDaysIndexes, dayIndexes,
+                // //     multipliedExchangeRates);
+                // const coordinates = []
+                // for (let i = 0; i < multipliedExchangeRates.length; i++) {
+                //     coordinates.push([dayIndexes[i], multipliedExchangeRates[i]]);
+                // }
+                //
+                // const model = regression.fit(coordinates);
+                // const predicted = [];
+                // for(var x = 0; x < nextDaysIndexes.length; x += 1.0) {
+                //     var predicted_y = regression.transform([nextDaysIndexes[x]]);
+                //     predicted.push(predicted_y);
+                // }
+                //
+                // debugger
+                // const newEstimatedValues = [];
+                // for (let i = 0; i < 10; i++) {
+                //     newEstimatedValues.push({x: format(new Date(newElements[i]), 'yyyy-MM-dd')
+                //     , y: predicted[i] / 1000000})
+                // }
+                //
+                // const dataPointsArray = [...result, ...newEstimatedValues];
+                // Regression({result});
+                // setDatapoints(dataPointsArray);
+          });
+      }
   }, [periodStart, periodEnd, source, target]);
 
   const convertResponseToData = (response) => {
-    return (response.data || []).map(entry => ({ x: entry.date, y: entry.rate }));
+    return (response.data || [])
+      .filter((item, index) => index % 3 === 0)
+      .map(entry => ({ x: entry.date, y: entry.rate }));
   }
 
   const data = {
     datasets: [
       {
-        label: 'Cubic interpolation (monotone)',
+        label: `${source.label}-${target.label}`,
         data: datapoints,
         borderColor: '#00b9ff',
         fill: false,
@@ -76,53 +116,51 @@ const LineChart = (props) => {
   };
 
   const options = {
-    type: 'line',
-    data: data,
     plugins: {
       legend: {
         display: false,
-        tooltip: true,
       }
     },
-    options: {
-      // animations: {
-      //   tension: {
-      //     duration: 1000,
-      //     easing: 'linear',
-      //     from: 1,
-      //     to: 0,
-      //     loop: true
-      //   }
-      // },
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: {
-        intersect: false,
+    elements: {
+      line: {
+        fill: false,
       },
-      scales: {
-        x: {
-          type: 'time',
-          display: true,
-          title: {
-            display: true
-          },
-          // time: {
-          //   unit: 'day'
-          // }
+      point: {
+        radius: 0,
+      }
+    },
+    // spanGaps: 1000 * 60 * 60 * 24 * 7, // 2 days
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      intersect: false,
+    },
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'month'
         },
-        y: {
+        grid: {
+          display: false,
+          drawTicks: false,
+        }
+      },
+      y: {
+        display: true,
+        title: {
           display: true,
-          title: {
-            display: true,
-            text: 'Value'
-          },
+          text: 'Rate'
+        },
+        grid: {
+          color: '#f2f5f7'
         }
       }
-    },
+    }
   };
 
   return (
-    <div>
+    <div className="m-a-3">
       {/*<DateLookup*/}
       {/*    value={periodStart}*/}
       {/*    min={null}*/}
@@ -196,7 +234,7 @@ const LineChart = (props) => {
       {/*      { value: 3, label: 'USD', currency: 'USD' },*/}
       {/*    ]}*/}
       {/*/>*/}
-      <Line data={data} options={options} height={300}/>
+      <Line data={data} options={options} height={500}/>
     </div>
   );
 };

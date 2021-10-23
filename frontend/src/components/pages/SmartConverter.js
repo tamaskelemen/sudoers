@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Navigation from '../navigation/Navigation';
 import LineChart from '../charts/LineChart';
 import SmartConverterTabs from '../tabs/SmartConverterTabs';
+import Order from "./Order";
 
 const SmartConverter = () => {
   const [open, setOpen] = React.useState(false);
@@ -38,6 +39,9 @@ const SmartConverter = () => {
                                 dueDate={dueDate} setDueDate={setDueDate}
                                 rate={rate} setRate={setRate}/>
           </div>
+        </div>
+        <div className="row">
+          <Order />
         </div>
       </Navigation>
     </div>

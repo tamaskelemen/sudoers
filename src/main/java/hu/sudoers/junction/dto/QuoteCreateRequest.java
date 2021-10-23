@@ -9,6 +9,7 @@ public class QuoteCreateRequest {
     private String targetCurrency;
     private Double sourceAmount;
     private Double targetAmount;
+    private String payOut;
     private int profile;
 
 }
