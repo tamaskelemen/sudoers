@@ -49,12 +49,9 @@ const Navigation = ({children}) => {
                 amount = current_balance.amount.value;
                 currency = current_balance.amount.currency;
 
-                splash_url = "/#/splashpage?source=" + currency;
+                splash_url = "/#/splashpage/" + currency;
                 console.log("long geci" + longCurrency);
     }
-
-
-
 
   return (
     <div className="balances-content">

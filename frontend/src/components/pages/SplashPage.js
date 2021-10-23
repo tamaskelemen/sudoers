@@ -3,6 +3,10 @@ import Navigation from '../navigation/SplashNavigation';
 
 class SplashPage extends PureComponent {
     componentDidMount() {
+        var path = window.location.hash;
+        document.getElementById("currency").innerHTML = path.split('/')[2];
+        document.getElementById("smartexchange-link").href = "/#/smartexchange/" + path.split('/')[2];
+
         var money_waste = false;
 
         function animateValue(id, start, end, duration) {
@@ -85,7 +89,7 @@ class SplashPage extends PureComponent {
                                 158,695,467
                             </h1>
                             <p className="splash-page__short-description">
-                                <div className="splash-page__saved-money-currency">GBP</div> Saved
+                                <div id="currency" className="splash-page__saved-money-currency"></div> Saved
                             </p>
                         </div>
                         <div className="splash-page__opt-transactions">
@@ -130,7 +134,7 @@ class SplashPage extends PureComponent {
                             </div>
                         </div>
                         <div className="send-button splash-page__button">
-                            <a href="/send" className="btn btn-sm btn-block btn-success splash-page__button--big">
+                            <a id="smartexchange-link" href="#" className="btn btn-sm btn-block btn-success splash-page__button--big">
                                 <span className="display-block">Lets start</span> saving
                             </a>
                         </div>
