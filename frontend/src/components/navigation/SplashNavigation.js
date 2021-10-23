@@ -1,4 +1,6 @@
 import React from 'react';
+import * as api from "../../client/api";
+import BalanceList from "./BalanceList";
 
 const Navigation = ({children}: {children: any}) => {
   return (
@@ -117,23 +119,7 @@ const Navigation = ({children}: {children: any}) => {
               </div>
               <div className="balance-group">
                 <div className="balance-group__title">Balances</div>
-                <ul>
-                  <li>
-                    <div className="balance-item active"><a href="/user/account/balances/23375373/">
-                      <div className="avatar-container" aria-hidden="true">
-                        <div className="balance-avatar balance-avatar--sm balance-avatar--dark">
-                          <div
-                            className="tw-avatar tw-avatar--sm tw-avatar--thumbnail tw-avatar--dark">
-                            <div className="tw-avatar__content"
-                                 style={{backgroundColor: 'transparent'}}><img
-                              className="balance-avatar__round-currency-icon"
-                              src="https://wise.com/public-resources/assets/flags/square/usd.svg" alt=""/></div>
-                          </div>
-                        </div>
-                      </div>
-                      <span className="balance-item__balance-details">0 USD</span></a></div>
-                  </li>
-                </ul>
+                <BalanceList/>
                 <a href="/flows/open-balance" className="balance-group__action"><span
                   className="tw-icon tw-icon-plus " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path

@@ -1,6 +1,9 @@
 import React from 'react';
+import * as api from "../../client/api";
+import BalanceList from '../navigation/BalanceList';
 
-const Navigation = ({children}: {children: any}) => {
+const Navigation = ({children}) => {
+
   return (
     <div className="balances-content">
       <div className="page-layout column-layout">
@@ -41,7 +44,7 @@ const Navigation = ({children}: {children: any}) => {
               d="M4 9.5a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM8.5 7a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"></path><path
               d="M17 20.948V22h-2v-1.052c0-.732-.258-1.257-.658-1.51C13.369 18.82 11.515 18 8.5 18c-3.015 0-4.87.821-5.842 1.437-.4.254-.658.78-.658 1.511V22H0v-1.052c0-1.14.407-2.452 1.588-3.2C2.873 16.934 5.098 16 8.5 16c3.403 0 5.627.934 6.912 1.748 1.18.748 1.588 2.06 1.588 3.2z"></path></svg></span></span><span
               className="mobileNavItem__label">Recipients</span></a></li>
-            <li className="mobileNavItem"><a className="mobileNavItem__link" href="/account/balances"><span
+            <li className="mobileNavItem"><a className="mobileNavItem__link" href="/account/"><span
               className="mobileNavItem__icon"><span className="tw-icon tw-icon-profile "
                                                     aria-hidden="true" role="presentation"><svg
               width="24" height="24" fill="currentColor" focusable="false"><path fill-rule="evenodd"
@@ -117,23 +120,7 @@ const Navigation = ({children}: {children: any}) => {
               </div>
               <div className="balance-group">
                 <div className="balance-group__title">Balances</div>
-                <ul>
-                  <li>
-                    <div className="balance-item active"><a href="/user/account/balances/23375373/">
-                      <div className="avatar-container" aria-hidden="true">
-                        <div className="balance-avatar balance-avatar--sm balance-avatar--dark">
-                          <div
-                            className="tw-avatar tw-avatar--sm tw-avatar--thumbnail tw-avatar--dark">
-                            <div className="tw-avatar__content"
-                                 style={{backgroundColor: 'transparent'}}><img
-                              className="balance-avatar__round-currency-icon"
-                              src="https://wise.com/public-resources/assets/flags/square/usd.svg" alt=""/></div>
-                          </div>
-                        </div>
-                      </div>
-                      <span className="balance-item__balance-details">0 USD</span></a></div>
-                  </li>
-                </ul>
+                <BalanceList/>
                 <a href="/flows/open-balance" className="balance-group__action"><span
                   className="tw-icon tw-icon-plus " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
@@ -160,39 +147,88 @@ const Navigation = ({children}: {children: any}) => {
           </button>
         </div>
         <div className="column-layout-main">
+          {/*<nav className="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title">*/}
+          {/*  <div className="container navbar-container m-l-0 p-t-0">*/}
+          {/*    <div className="header-container">*/}
+          {/*    </div>*/}
+          {/*    <ul className="nav navbar-nav notification-center">*/}
+          {/*      <li className="">*/}
+          {/*        <button className="notification-toggle dropdown-toggle" type="button"*/}
+          {/*                aria-haspopup="true" aria-expanded="false"><span className="sr-only">Toggle inbox</span>*/}
+          {/*          <div className="notification-center__icon-container"><span*/}
+          {/*            className="tw-icon tw-icon-notification " aria-hidden="true"*/}
+          {/*            role="presentation"><svg width="24" height="24" fill="currentColor"*/}
+          {/*                                     focusable="false"><path fill-rule="evenodd"*/}
+          {/*                                                             clip-rule="evenodd"*/}
+          {/*                                                             d="M12 2a7 7 0 00-7 7v4.405L3.602 17.5h16.796L19 13.405V9a7 7 0 00-7-7zM7 9a5 5 0 0110 0v4.738l.602 1.762H6.398L7 13.738V9z"></path><path*/}
+          {/*            d="M12 22a2.4 2.4 0 01-2.4-2.4h4.8A2.4 2.4 0 0112 22z"></path></svg></span>*/}
+          {/*          </div>*/}
+          {/*        </button>*/}
+          {/*      </li>*/}
+          {/*    </ul>*/}
+          {/*    <nav className="profile-menu nav navbar-nav navbar-right">*/}
+          {/*      <button type="button" aria-expanded="false" className="profile-name btn-unstyled">*/}
+          {/*        <span className="sr-only">Open or close account menu</span>*/}
+          {/*        <div className="circle circle-inverse circle__user-avatar">TB</div>*/}
+          {/*        <h5 className="hidden-xs hidden-sm hidden-md m-l-1">Test Business</h5><span*/}
+          {/*        className="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom m-l-1"*/}
+          {/*        aria-hidden="true" role="presentation"><svg width="16" height="16"*/}
+          {/*                                                    fill="currentColor" focusable="false"><path*/}
+          {/*        fill-rule="evenodd" clip-rule="evenodd"*/}
+          {/*        d="M8 4l-6.6 6.653L2.537 11.8 8 6.293l5.463 5.507 1.137-1.147L8 4z"></path></svg></span>*/}
+          {/*      </button>*/}
+          {/*    </nav>*/}
+          {/*  </div>*/}
+          {/*</nav>*/}
           <nav
-            className="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title">
+              className="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title">
             <div className="container navbar-container m-l-0 p-t-0">
               <div className="header-container">
+                <div className="css-vrlw6k">
+                  <div className="balance-avatar balance-avatar--md css-hvb60">
+                    <div className="tw-avatar tw-avatar--md tw-avatar--thumbnail tw-avatar--light">
+                      <div className="tw-avatar__content"
+                           style={{backgroundColor: 'transparent'}}><img
+                          className="balance-avatar__round-currency-icon"
+                          src="/public-resources/assets/flags/square/usd.svg" alt=""/></div>
+
+                        <img className="balance-avatar__round-currency-icon"
+                          src="/public-resources/assets/flags/square/aud.svg" alt=""/>
+                        </div>
+                    </div>
+                  </div>
+                  <div className="css-zg1vud">
+                    <div className="css-13lnwmz">Australian dollar</div>
+                    <div className="css-1cg9o3l"><h2 className="css-gt3lwo">4,000,000 AUD</h2></div>
+                  </div>
+                </div>
               </div>
               <ul className="nav navbar-nav notification-center">
                 <li className="">
-                  <button className="notification-toggle dropdown-toggle" type="button"
-                          aria-haspopup="true" aria-expanded="false"><span className="sr-only">Toggle inbox</span>
-                    <div className="notification-center__icon-container"><span
-                      className="tw-icon tw-icon-notification " aria-hidden="true"
-                      role="presentation"><svg width="24" height="24" fill="currentColor"
-                                               focusable="false"><path fill-rule="evenodd"
-                                                                       clip-rule="evenodd"
-                                                                       d="M12 2a7 7 0 00-7 7v4.405L3.602 17.5h16.796L19 13.405V9a7 7 0 00-7-7zM7 9a5 5 0 0110 0v4.738l.602 1.762H6.398L7 13.738V9z"></path><path
-                      d="M12 22a2.4 2.4 0 01-2.4-2.4h4.8A2.4 2.4 0 0112 22z"></path></svg></span>
-                    </div>
+                  <button className="notification-toggle dropdown-toggle" type="button" aria-haspopup="true"
+                          aria-expanded="false"><span className="sr-only">Toggle inbox</span>
+                    <div className="notification-center__icon-container"><span className="tw-icon tw-icon-notification "
+                                                                               aria-hidden="true" role="presentation"><svg
+                        width="24" height="24" fill="currentColor" focusable="false"><path fill-rule="evenodd"
+                                                                                           clip-rule="evenodd"
+                                                                                           d="M12 2a7 7 0 00-7 7v4.405L3.602 17.5h16.796L19 13.405V9a7 7 0 00-7-7zM7 9a5 5 0 0110 0v4.738l.602 1.762H6.398L7 13.738V9z"></path><path
+                        d="M12 22a2.4 2.4 0 01-2.4-2.4h4.8A2.4 2.4 0 0112 22z"></path></svg></span></div>
                   </button>
                 </li>
               </ul>
               <nav className="profile-menu nav navbar-nav navbar-right">
-                <button type="button" aria-expanded="false" className="profile-name btn-unstyled">
-                  <span className="sr-only">Open or close account menu</span>
-                  <div className="circle circle-inverse circle__user-avatar">TB</div>
-                  <h5 className="hidden-xs hidden-sm hidden-md m-l-1">Test Business</h5><span
-                  className="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom m-l-1"
-                  aria-hidden="true" role="presentation"><svg width="16" height="16"
-                                                              fill="currentColor" focusable="false"><path
-                  fill-rule="evenodd" clip-rule="evenodd"
-                  d="M8 4l-6.6 6.653L2.537 11.8 8 6.293l5.463 5.507 1.137-1.147L8 4z"></path></svg></span>
+                <button type="button" aria-expanded="false" className="profile-name btn-unstyled"><span
+                    className="sr-only">Open or close account menu</span>
+                  <div className="circle circle-inverse circle__user-avatar">dd</div>
+                  <h5 className="hidden-xs hidden-sm hidden-md m-l-1">dddddd dddddd</h5><span
+                      className="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom m-l-1" aria-hidden="true"
+                      role="presentation"><svg width="16" height="16" fill="currentColor" focusable="false"><path
+                      fill-rule="evenodd" clip-rule="evenodd"
+                      d="M8 4l-6.6 6.653L2.537 11.8 8 6.293l5.463 5.507 1.137-1.147L8 4z"></path>
+                      </svg>
+                </span>
                 </button>
               </nav>
-            </div>
           </nav>
           <div className="container-content">
             <div className="fixed-top__balances-actionbar fixed-top-container__balances-actionbar">
@@ -339,10 +375,8 @@ const Navigation = ({children}: {children: any}) => {
                 </div>
               </div>
             </div>
-            <div className="container full-height-container__balance_navigation">
-              <div>
+            <div className="container full-height-container__balance">
               {children}
-              </div>
             </div>
           </div>
         </div>

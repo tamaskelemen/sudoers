@@ -1,44 +1,47 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Navigation from '../navigation/Navigation';
 import LineChart from '../charts/LineChart';
-import Form from "./Form";
-import {Tabs} from "@transferwise/components";
+import SmartConverterTabs from '../tabs/SmartConverterTabs';
 
 const SmartConverter = () => {
-    const [open, setOpen] = React.useState(false);
-    return (
-      <div>
-        <Navigation>
-            <div className="row">
-                <div className="col-sm-8">
-                    <LineChart />
-                </div>
-            </div>
-            <Tabs
-                className="tabs-custom-class"
-                name="tabs-docs"
-                tabs={[
-                    {
-                        title: 'Transfer',
-                        disabled: false,
-                        content: (
-                            <Form />
-                        ),
-                    },
-                    {
-                        title: 'Recurring Payment',
-                        disabled: false,
-                        content: (
-                            <Form />
-                        ),
-                    },
-                ]}
-                selected={open}
-                onTabSelect={(index) => setOpen(index)}
-            />
-        </Navigation>
-      </div>
-    );
+  const [open, setOpen] = React.useState(false);
+  const [source, setSource] = React.useState({
+    value: 'USD',
+    label: 'USD',
+    note: 'US Dollar',
+    currency: 'usd',
+    searchable: 'USA',
+  });
+  const [target, setTarget] = React.useState({
+    value: 'EUR',
+    label: 'EUR',
+    note: 'Euro',
+    currency: 'eur',
+    searchable: 'Spain, Germany, France, Austria',
+  });
+  const [dueDate, setDueDate] = useState();
+  const [rate, setRate] = useState();
+
+  return (
+    <div>
+      <Navigation>
+        <div className="row">
+          <div className="col-sm-8">
+            <LineChart source={source} setSource={setSource}
+                       target={target} setTarget={setTarget}
+                       dueDate={dueDate} setDueDate={setDueDate}
+                       rate={rate} setRate={setRate} />
+          </div>
+          <div className="col-sm-4">
+            <SmartConverterTabs source={source} setSource={setSource}
+                                target={target} setTarget={setTarget}
+                                dueDate={dueDate} setDueDate={setDueDate}
+                                rate={rate} setRate={setRate}/>
+          </div>
+        </div>
+      </Navigation>
+    </div>
+  );
 };
 
 SmartConverter.propTypes = {};

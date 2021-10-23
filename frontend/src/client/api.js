@@ -1,6 +1,7 @@
 const axios = require('axios');
 const querystring = require('querystring');
-var baseUrl = "http://junction-sudoers.hu";
+//var baseUrl = "http://junction-sudoers.hu";
+var baseUrl = "http://localhost:8080";
 
 /**
  * Return the chart data as array.
@@ -90,3 +91,15 @@ export const balances = function(profile_id) {
         })
 }
 
+export const orderList = function() {
+    let uri = "/api/order/list";
+    return axios.get(baseUrl+ uri)
+            .then(function (response) {
+                console.log(response)
+                return response;
+            })
+            .catch(function (error) {
+                console.log(error)
+                return;
+    })
+}
