@@ -1,5 +1,6 @@
 package hu.sudoers.junction.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import hu.sudoers.junction.dto.OrderDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class OrderEntity {
     public static final String STATUS_ARCHIVE = "archive";
 
     @Id
+    @JsonProperty("_id")
     private String id;
     private String from;
     private String to;

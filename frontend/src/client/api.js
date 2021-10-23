@@ -121,3 +121,12 @@ export const createQuote = function(sourceCurrency, targetCurrency, sourceAmount
         payOut: 'BALANCE',
     });
 }
+
+export const setOrderStatus = function(id, status) {
+    let uri = "/api/order/status";
+
+    return axios.post(baseUrl + uri, {
+        "order_id": id,
+        status
+    });
+}

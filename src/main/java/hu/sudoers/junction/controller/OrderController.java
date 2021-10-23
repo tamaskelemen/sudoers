@@ -40,7 +40,7 @@ public class OrderController {
     public ResponseEntity<String> status(@RequestBody OrderStatusRequest orderStatusRequest) {
         val orderEntity = orderRepository.findById(orderStatusRequest.getOrder_id()).orElseThrow();
 
-        orderEntity.setStatus(orderEntity.getStatus());
+        orderEntity.setStatus(orderStatusRequest.getStatus());
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
