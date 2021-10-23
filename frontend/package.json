@@ -9,6 +9,7 @@
     "@transferwise/components": "^37.9.1",
     "@transferwise/icons": "^2.15.0",
     "@transferwise/neptune-css": "^10.0.5-beta.0",
+    "antd": "^4.16.13",
     "axios": "^0.23.0",
     "chart.js": "^3.5.1",
     "chartjs-adapter-date-fns": "^2.0.0",
