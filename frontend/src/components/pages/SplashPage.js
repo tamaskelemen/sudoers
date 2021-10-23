@@ -54,7 +54,7 @@ class SplashPage extends PureComponent {
             mesint("splash-page__saved-money-h1", 158695467, 9586954679, 19999999999999);
 
             if (money_waste == true) {
-                document.getElementById("splash-page__saved-money-h1").style.color = 'red';
+                document.getElementById("splash-page__saved-money-h1").style.color = '#c22e2e';
             } else {
                 document.getElementById("splash-page__saved-money-h1").style.color = '#37517e';
             }

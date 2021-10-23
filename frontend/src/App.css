@@ -367,3 +367,25 @@
   }
 }
 
+#demo_button {
+  position: absolute;
+  top: 10%;
+  left: 90%;
+}
+
+.demo_button_image {
+  width: 180px;
+  height: 100px;
+}
+
+/*#demo-popup {*/
+/*  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;*/
+/*  border: 0 solid black;*/
+/*  border-radius: 25px;*/
+/*  background-color: #fff;*/
+/*  position: absolute;*/
+/*  top: 10%;*/
+/*  left: 80%;*/
+/*  width: 480px;*/
+/*  height: 300px;*/
+/*}*/
