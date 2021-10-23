@@ -3,6 +3,7 @@ import '@transferwise/icons/lib/styles/main.min.css';
 import '@transferwise/components/build/main.css';
 
 import './App.css';
+import './client/api.js';
 import {Provider} from '@transferwise/components';
 import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import SplashPage from './components/pages/SplashPage';
