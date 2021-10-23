@@ -16,7 +16,7 @@ public class OrderEntity {
     public static final String STATUS_ARCHIVE = "archive";
 
     @Id
-    private String _id;
+    private String id;
     private String from;
     private String to;
     private Float amount;
