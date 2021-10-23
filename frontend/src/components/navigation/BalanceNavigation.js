@@ -13,6 +13,7 @@ const Navigation = ({children}) => {
     let image;
     let amount;
     let currency;
+    let splash_url;
 
     React.useEffect(function() {
         api.balances(16297127).then(function(response) {
@@ -48,6 +49,7 @@ const Navigation = ({children}) => {
                 amount = current_balance.amount.value;
                 currency = current_balance.amount.currency;
 
+                splash_url = "/#/splashpage?source=" + currency;
                 console.log("long geci" + longCurrency);
     }
 
@@ -197,11 +199,11 @@ const Navigation = ({children}) => {
           </button>
         </div>
         <div class="column-layout-main">
-           <nav class="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title">
-              <div class="container navbar-container m-l-0 p-t-0">
+           <nav class="top-bar navbar navbar-default m-b-0 simple-nav fixed-top__title-bar no-keyline navbar-mobile--with-title" style={{height: '100px'}}>
+              <div class="container navbar-container m-l-0 p-t-0" style={{height: '100px'}}>
                  <div class="header-container">
-                    <div class="css-vrlw6k">
-                       <div class="balance-avatar balance-avatar--md css-hvb60">
+                    <div class="css-vrlw6k" style={{display: 'flex'}}>
+                       <div class="balance-avatar balance-avatar--md css-hvb60" style={{marginRight: '18px'}}>
                           <div class="tw-avatar tw-avatar--md tw-avatar--thumbnail tw-avatar--light">
                              <div class="tw-avatar__content" style={{backgroundColor: 'transparent'}}>
                              <img class="balance-avatar__round-currency-icon" src={image} alt="" /></div>
@@ -245,7 +247,7 @@ const Navigation = ({children}) => {
               </div>
            </nav>
            <div class="container-content">
-              <div class="fixed-top__balances-actionbar fixed-top-container__balances-actionbar">
+              <div class="fixed-top__balances-actionbar fixed-top-container__balances-actionbar" style={{marginTop: '100px'}}>
                  <div class="nav-toolbar nav-toolbar--compact p-b-2">
                     <div class="container m-l-0 hidden-xs">
                        <div class="action-buttons p-l-0 pull-left">
@@ -254,7 +256,7 @@ const Navigation = ({children}) => {
                                 <button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Add</button>
                                 <button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Convert</button>
                                 <button type="button" class="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2">Send</button>
-                                <a href="/#/splashpage" class="btn btn-sm btn-block btn-success">Smart exchange</a>
+                                <a href={splash_url} class="btn btn-sm btn-block btn-success">Smart exchange</a>
                             </div>
                           </div>
                        </div>
@@ -271,7 +273,7 @@ const Navigation = ({children}) => {
                     </div>
                  </div>
               </div>
-              <div class="container full-height-container__balance">
+              <div class="container full-height-container__balance" style={{paddingTop: '0px'}}>
                  <div class="promotion-container">
                     <tw-activation-code-notifications can-manage-verification="props.canManageVerification" class="ng-scope ng-isolate-scope">
                     </tw-activation-code-notifications>
