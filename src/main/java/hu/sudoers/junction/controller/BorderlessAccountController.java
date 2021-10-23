@@ -20,6 +20,7 @@ public class BorderlessAccountController {
         return ResponseEntity.ok(borderlessService.checkAccountBalance(profileId));
     }
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @PostMapping("/{borderlessAccountId}")
     public ResponseEntity<String> conversion(@RequestBody ConversionRequest request, @PathVariable String borderlessAccountId) {
         return ResponseEntity.ok(borderlessService.conversion(request, borderlessAccountId));
