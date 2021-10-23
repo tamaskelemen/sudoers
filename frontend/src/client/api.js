@@ -2,7 +2,6 @@ const axios = require('axios');
 const querystring = require('querystring');
 var baseUrl = "http://localhost:8080";
 
-
 /**
  * Return the chart data as array.
 */
@@ -76,3 +75,18 @@ export const disclaimer = function(source, target, amount) {
                    return [];
              });
 }
+
+export const balances = function(profile_id) {
+    let uri = "/api/borderless-accounts/profiles/" + profile_id;
+
+    return axios.get(baseUrl+ uri)
+        .then(function (response) {
+            console.log(response)
+            return response;
+        })
+        .catch(function (error) {
+            console.log(error)
+            return;
+        })
+}
+
