@@ -3,7 +3,7 @@ package hu.sudoers.junction.dto;
 import lombok.Data;
 
 @Data
-public class CommissionDto {
+public class OrderDto {
     private String from;
     private String to;
     private Float amount;

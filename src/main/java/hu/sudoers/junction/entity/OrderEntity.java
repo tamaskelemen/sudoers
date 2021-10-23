@@ -1,15 +1,15 @@
 package hu.sudoers.junction.entity;
 
-import hu.sudoers.junction.dto.CommissionDto;
+import hu.sudoers.junction.dto.OrderDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("commissions")
+@Document("orders")
 @Data
 @NoArgsConstructor
-public class CommissionEntity {
+public class OrderEntity {
 
     public static final String STATUS_ACTIVE = "active";
     public static final String STATUS_INACTIVE = "inactive";
@@ -23,14 +23,14 @@ public class CommissionEntity {
     private Float threshold;
     private String source;
     private String target;
-    private String status = CommissionEntity.STATUS_ACTIVE;
+    private String status = OrderEntity.STATUS_ACTIVE;
 
-    public CommissionEntity(CommissionDto commissionDto) {
-        this.amount = commissionDto.getAmount();
-        this.threshold = commissionDto.getThreshold();
-        this.from = commissionDto.getFrom();
-        this.to = commissionDto.getTo();
-        this.source = commissionDto.getSource();
-        this.target = commissionDto.getTarget();
+    public OrderEntity(OrderDto orderDto) {
+        this.amount = orderDto.getAmount();
+        this.threshold = orderDto.getThreshold();
+        this.from = orderDto.getFrom();
+        this.to = orderDto.getTo();
+        this.source = orderDto.getSource();
+        this.target = orderDto.getTarget();
     }
 }

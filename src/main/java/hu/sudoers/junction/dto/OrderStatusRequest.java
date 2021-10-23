@@ -3,7 +3,7 @@ package hu.sudoers.junction.dto;
 import lombok.Data;
 
 @Data
-public class ComissionStatusRequest {
-    private String comission_id;
+public class OrderStatusRequest {
+    private String order_id;
     private String status;
 }
