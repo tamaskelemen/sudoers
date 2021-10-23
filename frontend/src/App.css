@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+@media (min-width: 992px) {
+  .full-height-container__balance_navigation {
+     padding-top: 48px;
+  }
+  .full-height-container__balance_navigation > div {
+    background-color: white;
+  }
+}

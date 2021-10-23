@@ -1,13 +1,12 @@
 const axios = require('axios');
 const querystring = require('querystring');
-const repository = require("./repository")
 var baseUrl = "http://localhost:8080";
 
 
 /**
  * Return the chart data as array.
 */
-const chart =  (from, to, source, target) => {
+export const chart = (from, to, source, target) => {
 
     var params = {
         "from": from,
@@ -17,9 +16,8 @@ const chart =  (from, to, source, target) => {
     }
 
     let queryString = querystring.stringify(params);
-    console.log(queryString);
 
-    const response = axios.get(baseUrl + "/api/rates?" + queryString)
+    return axios.get(baseUrl + "/api/rates?" + queryString)
         .then(function (response) {
             // handle success
             console.log(response);
@@ -33,7 +31,7 @@ const chart =  (from, to, source, target) => {
 
 };
 
-const setOrder = function(from, to, source, target, threshold, amount) {
+export const setOrder = function(from, to, source, target, threshold, amount) {
     var params = {
         "from": from,
         "to": to,
@@ -43,7 +41,7 @@ const setOrder = function(from, to, source, target, threshold, amount) {
         "threshold": threshold
     }
 
-    axios.post(baseUrl + "/api/order/create", params)
+    return axios.post(baseUrl + "/api/order/create", params)
          .then(function (response) {
                // handle success
                console.log(response);
@@ -57,7 +55,7 @@ const setOrder = function(from, to, source, target, threshold, amount) {
 };
 
 //Returns how much you get by using tw
-const disclaimer = function(source, target, amount) {
+export const disclaimer = function(source, target, amount) {
     var params = {
         "sourceCurrency": source,
         "targetCurrency": target,
@@ -65,8 +63,8 @@ const disclaimer = function(source, target, amount) {
     }
 
     let queryString = querystring.stringify(params);
-    console.log(queryString);
-    axios.get(baseUrl + "/api/comparison/disclaimer?" + queryString)
+
+    return axios.get(baseUrl + "/api/comparison/disclaimer?" + queryString)
              .then(function (response) {
                    // handle success
                    console.log(response);
@@ -78,8 +76,3 @@ const disclaimer = function(source, target, amount) {
                    return [];
              });
 }
-
-chart("2017-10-01", "2018-11-01", "AED", "USD");
-setOrder("2017-10-01", "2018-11-01", "AED", "USD", 10, 1555);
-disclaimer("USD", "HUF", 10000);
-
