@@ -1,6 +1,6 @@
 const axios = require('axios');
 const querystring = require('querystring');
-var baseUrl = "http://localhost:8080";
+var baseUrl = "http://junction-sudoers.hu";
 
 /**
  * Return the chart data as array.
