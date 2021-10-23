@@ -83,4 +83,3 @@ chart("2017-10-01", "2018-11-01", "AED", "USD");
 setOrder("2017-10-01", "2018-11-01", "AED", "USD", 10, 1555);
 disclaimer("USD", "HUF", 10000);
 
-payments.fund();
