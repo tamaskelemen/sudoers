@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
-import { Line } from 'react-chartjs-2';
+import React, {useEffect, useState} from 'react';
+import {Line} from 'react-chartjs-2';
 import {chart} from '../../client/api';
 
 const LineChart = () => {
-  const [datapoints, setDatapoints] = useState();
+  const [datapoints, setDatapoints] = useState([]);
 
   useEffect(() => {
     chart('2021-05-01', '2021-08-01', 'HUF', 'USD')
@@ -13,7 +13,7 @@ const LineChart = () => {
   }, [])
 
   const convertResponseToData = (response) => {
-    return response.data.map(entry => ({x: entry.date, y: entry.rate}))
+    return response.data.map(entry => ({ x: entry.date, y: entry.rate }))
   }
 
   const data = {
@@ -24,7 +24,7 @@ const LineChart = () => {
         borderColor: 'red',
         fill: false,
         cubicInterpolationMode: 'monotone',
-        tension: 0.4
+        tension: 0.8,
       }
     ]
   };
@@ -32,6 +32,12 @@ const LineChart = () => {
   const options = {
     type: 'line',
     data: data,
+    plugins: {
+      legend: {
+        display: false,
+        tooltip: true,
+      }
+    },
     options: {
       // animations: {
       //   tension: {
@@ -44,11 +50,6 @@ const LineChart = () => {
       // },
       responsive: true,
       maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: false
-        }
-      },
       interaction: {
         intersect: false,
       },
@@ -76,7 +77,7 @@ const LineChart = () => {
 
   return (
     <div>
-      <Line data={data} options={options} />
+      <Line data={data} options={options} height={300}/>
     </div>
   );
 };
