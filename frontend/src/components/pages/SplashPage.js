@@ -48,7 +48,9 @@ class SplashPage extends PureComponent {
                     current += increment;
                 }
 
-                obj.innerHTML = current.toLocaleString();
+                if (obj) {
+                    obj.innerHTML = current.toLocaleString();
+                }
 
                 if (current == end) {
                     clearInterval(timer);
@@ -113,16 +115,17 @@ class SplashPage extends PureComponent {
                         </div>
                         <div className="splash-page__description">
                             <p>
-                                Our new feature let you use the several decades of
-                                experience of our analytics team combined with the
-                                latest prediction techniques to find even better excange
-                                rates for your money transfers.
+                                This product utilizes prediction algorithms.
+                                There is a small chance we can’t provide the expected exchange rate
                             </p>
                             <p>
-                                Our new feature let you use the several decades of
-                                experience of our analytics team combined with the
-                                latest prediction techniques to find even better excange
-                                rates for your money transfers.
+                                Use this tool for your own responsibility
+                            </p>
+                            <p>
+                                We don’t know the exchange date, but we guarantee that the money will be on your target balance on the set interval
+                            </p>
+                            <p>
+                                In case of impossible limits we can’t start the transaction in the timeframe
                             </p>
                         </div>
                     </div>

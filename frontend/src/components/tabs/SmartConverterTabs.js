@@ -3,6 +3,7 @@ import './index.css';
 import React from 'react';
 import Form from './form/Form';
 import {Tabs} from '@transferwise/components';
+import Order from "../pages/Order";
 
 const SmartConverterTabs = (props) => {
   const [open, setOpen] = React.useState(false);
@@ -43,6 +44,9 @@ const SmartConverterTabs = (props) => {
         selected={open}
         onTabSelect={(index) => setOpen(index)}
       />
+    <div className="row grid__smart-converter">
+        <Order />
+    </div>
     </div>
   );
 }

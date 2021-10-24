@@ -39,6 +39,14 @@ const SmartConverter = () => {
     setSource(currencies.find(currency => currency.value === sourceFromPath))
   }, [])
 
+  // function timeWalking(source, target, amount) {
+  //   setOpen(true);
+  //   TimeWalking(source, target, amount)
+  //       .then(() => {
+  //           setRefreshOrder(!refreshOrder);
+  //       })
+  // }
+
   return (
     <div>
       <Navigation>
@@ -61,10 +69,10 @@ const SmartConverter = () => {
                                 riskLevel={riskLevel} setRiskLevel={setRiskLevel}/>
           </div>
         </div>
-        <div className="row grid__smart-converter">
-          <Order />
-        </div>
       </Navigation>
+      <div id="yellow-warning">
+        <span id="yellow-warning__bold">WARNING:</span> The yellow dotted line is a predicted value by an algorithm. Our science team created these predictions, but the market can be different from it.
+      </div>
     </div>
   );
 };
