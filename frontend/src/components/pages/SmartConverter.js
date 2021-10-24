@@ -6,6 +6,7 @@ import {useParams} from 'react-router-dom';
 import currencies from '../tabs/form/currencies';
 import {Alert, Sentiment, Tabs} from '@transferwise/components';
 import Order from './Order';
+import Tutorial from "../tutorial/Tutorial";
 
 const SmartConverter = () => {
   const [open, setOpen] = React.useState(false);
@@ -40,17 +41,10 @@ const SmartConverter = () => {
     setSource(currencies.find(currency => currency.value === sourceFromPath))
   }, [])
 
-  // function timeWalking(source, target, amount) {
-  //   setOpen(true);
-  //   TimeWalking(source, target, amount)
-  //       .then(() => {
-  //           setRefreshOrder(!refreshOrder);
-  //       })
-  // }
-
   return (
     <div>
       <Navigation>
+        <Tutorial/>
         <div className="row">
           <div className="col-sm-8">
             <LineChart source={source} setSource={setSource}
