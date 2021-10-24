@@ -53,7 +53,7 @@ const SmartConverter = () => {
                                 rate={rate} setRate={setRate}/>
           </div>
         </div>
-        <div className="row">
+        <div className="row grid__smart-converter">
           <Order />
         </div>
       </Navigation>
