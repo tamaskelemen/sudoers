@@ -289,10 +289,10 @@ const Navigation = ({children}) => {
                                          </svg>
                                       </span>
                                    </div>
-                                   <div class="flag-container"><img class="round-currency-flag-icon" src="https://wise.com/public-resources/assets/flags/square/aud.svg" alt="currency-flag"/></div>
+                                   <div class="flag-container"><img class="round-currency-flag-icon" src={image} alt="currency-flag"/></div>
                                 </div>
                                 <div class="media-body">
-                                   <div class="text-xs-nowrap text-ellipsis h5">Get account details for your AUD balance</div>
+                                   <div class="text-xs-nowrap text-ellipsis h5">Get account details for your {currency} balance</div>
                                    <small>With account details, you can start receiving bank transfers straight to this balance. You’ll get an account number and BSB.</small>
                                 </div>
                                 <div class="media-right balance-overview__chevron-container text-info">
