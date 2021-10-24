@@ -41,7 +41,7 @@ const Tutorial = () => {
                         setOpen(false);
                         setOpen2(true);
                     }}>
-                        Close
+                        Next
                     </Button>
                 }
             />
@@ -69,7 +69,7 @@ const Tutorial = () => {
                         setOpen2(false);
                         setOpen3(true);
                     }}>
-                        Close
+                        Next
                     </Button>
                 }
             />
@@ -97,7 +97,7 @@ const Tutorial = () => {
                         setOpen3(false);
                         setOpen4(true)
                     }}>
-                        Close
+                        Next
                     </Button>
                 }
             />

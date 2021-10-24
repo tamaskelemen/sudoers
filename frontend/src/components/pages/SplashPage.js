@@ -5,8 +5,13 @@ class SplashPage extends PureComponent {
     componentDidMount() {
         var path = window.location.hash;
         setTimeout(function () {
-            document.getElementById("currency").innerHTML = path.split('/')[2];
-            document.getElementById("smartconverter-link").href = "/#/smartconverter/" + path.split('/')[2];
+            if (document.getElementById("currency")) {
+                document.getElementById("currency").innerHTML = path.split('/')[2];
+            }
+
+            if (document.getElementById("smartconverter-link")) {
+                document.getElementById("smartconverter-link").href = "/#/smartconverter/" + path.split('/')[2];
+            }
         }, 1000);
 
         var money_waste = false;
