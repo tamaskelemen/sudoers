@@ -30,6 +30,7 @@ const SmartConverter = () => {
   });
   const [dueDate, setDueDate] = useState();
   const [rate, setRate] = useState();
+  const [calculation, setCalculation] = useState();
 
   function timeWalking(source, target, amount) {
     setOpen(true);
@@ -67,7 +68,7 @@ const SmartConverter = () => {
             className="demo_button">
           <Button
               onClick={
-                () => timeWalking()
+                () => timeWalking(source.currency, target.currency, calculation)
               }>
             Time Walking
           </Button>

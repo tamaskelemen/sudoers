@@ -6,7 +6,8 @@ import {Tabs} from '@transferwise/components';
 
 const SmartConverterTabs = (props) => {
   const [open, setOpen] = React.useState(false);
-  const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = props;
+  const { source, setSource, target, setTarget, dueDate, setDueDate,
+      rate, setRate, calculation, setCalculation } = props;
 
   return (
     <div className="m-a-2">
@@ -21,6 +22,7 @@ const SmartConverterTabs = (props) => {
               <Form source={source} setSource={setSource}
                     target={target} setTarget={setTarget}
                     dueDate={dueDate} setDueDate={setDueDate}
+                    calculation={calculation} setCalculation={setCalculation}
                     rate={rate} setRate={setRate}/>
             ),
           },
@@ -32,6 +34,7 @@ const SmartConverterTabs = (props) => {
                     source={source} setSource={setSource}
                     target={target} setTarget={setTarget}
                     dueDate={dueDate} setDueDate={setDueDate}
+                    calculation={calculation} setCalculation={setCalculation}
                     rate={rate} setRate={setRate}/>
             ),
           },
