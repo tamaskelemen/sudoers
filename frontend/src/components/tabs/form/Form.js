@@ -393,7 +393,7 @@ class Form extends PureComponent {
                   </p>
                 </div>
                 <div className="modal__element">
-                  Today date is: <span className="bold">{this.state.dueDate}</span>
+                  Today date is: <span className="bold">2021-10-31</span>
                   <p className="help-block">
                     <span className="display-block">This is just for demo purposes</span>
                   </p>
