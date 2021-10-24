@@ -81,6 +81,9 @@ const SmartConverter = () => {
             </div>
           </div>
         </div>
+        <div className="row grid__smart-converter">
+          <Order />
+        </div>
       </Navigation>
     </div>
   );
