@@ -25,12 +25,9 @@ const Navigation = ({children}) => {
 
 
     current_balance = balances.find(x => x.id == balance_id);
-    console.log("nanaa" + typeof current_balance);
     if (typeof current_balance !== "undefined") {
 
 //         current_balance = balances.find(x => x.id == balance_id);
-
-                console.log("szopdki:" + current_balance.currency)
 
                 if (current_balance.currency == "USD") {
                     longCurrency = "American dollar";
@@ -50,7 +47,6 @@ const Navigation = ({children}) => {
                 currency = current_balance.amount.currency;
 
                 splash_url = "/#/splashpage/" + currency;
-                console.log("long geci" + longCurrency);
     }
 
   return (

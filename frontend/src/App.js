@@ -6,7 +6,7 @@ import '@transferwise/components/build/main.css';
 import './App.css';
 import './client/api.js';
 import {Provider} from '@transferwise/components';
-import {HashRouter as Router, Route, Switch} from 'react-router-dom';
+import {HashRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import SplashPage from './components/pages/SplashPage';
 import SmartConverter from './components/pages/SmartConverter';
 import Balance from './components/pages/Balance';
@@ -42,6 +42,9 @@ function App() {
             </Route>
             <Route path="/user/account/balances/:balance_id">
               <Balance/>
+            </Route>
+            <Route path="/" >
+              <Redirect to="/user/account/balances/87514" />
             </Route>
             {/*<Route path="/">*/}
             {/*  <IndexPage/>*/}
