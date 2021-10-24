@@ -29,6 +29,7 @@ class Form extends PureComponent {
       limit: '',
       smartConversion: true,
       dueDate: '',
+      refreshOrder: props.refreshOrder
       // calculation: {
       //   sourceAmount: 0
       // }
@@ -63,10 +64,7 @@ class Form extends PureComponent {
         document.getElementById('the-big-send-button').disabled = true;
         document.getElementById('alert-msg').style.display = 'block';
 
-        setTimeout(function () {
-          window.location.reload();
-        }, 3000);
-      });
+      }).then(() => this.props.setRefreshOrder(!this.props.refreshOrder));
   }
 
   setOpen(event) {
@@ -146,7 +144,8 @@ class Form extends PureComponent {
 
   timeWalking(source, target, amount) {
     this.setOpen(true);
-    TimeWalking(source.toUpperCase(), target.toUpperCase(), amount);
+    TimeWalking(source.toUpperCase(), target.toUpperCase(), amount)
+        .then(() => this.props.setRefreshOrder(!this.props.refreshOrder));
   }
 
   render() {

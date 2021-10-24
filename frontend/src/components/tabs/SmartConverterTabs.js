@@ -7,7 +7,8 @@ import Order from "../pages/Order";
 
 const SmartConverterTabs = (props) => {
   const [open, setOpen] = React.useState(false);
-  const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate, calculation, setCalculation, riskLevel, setRiskLevel } = props;
+  const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate, calculation, setCalculation,
+      riskLevel, setRiskLevel, refreshOrder, setRefreshOrder } = props;
 
   return (
     <div className="m-a-2">
@@ -24,6 +25,7 @@ const SmartConverterTabs = (props) => {
                     dueDate={dueDate} setDueDate={setDueDate}
                     calculation={calculation} setCalculation={setCalculation}
                     rate={rate} setRate={setRate}
+                    refreshOrder={refreshOrder} setRefreshOrder={setRefreshOrder}
                     riskLevel={riskLevel} setRiskLevel={setRiskLevel}/>
             ),
           },

@@ -23,12 +23,12 @@ class Order extends Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log("refresh");
-        const { refresh } = props;
-        if (props.refresh !== refresh) {
+        const { refreshOrder } = props;
+        if (this.props.refreshOrder !== refreshOrder) {
             orderList().then(response => {
                 this.setState({
-                    dataSource: response.data
+                    dataSource: response.data,
+                    refreshOrder: props.refreshOrder
                 })
             });
         }

@@ -73,16 +73,14 @@ const SmartConverter = () => {
                                 dueDate={dueDate} setDueDate={setDueDate}
                                 calculation={calculation} setCalculation={setCalculation}
                                 rate={rate} setRate={setRate}
+                                refreshOrder={refreshOrder} setRefreshOrder={setRefreshOrder}
                                 riskLevel={riskLevel} setRiskLevel={setRiskLevel}/>
           </div>
           <div className="col-xs-12">
             <div className="row grid__smart-converter">
-              <Order />
+              <Order refreshOrder={refreshOrder}/>
             </div>
           </div>
-        </div>
-        <div className="row grid__smart-converter">
-          <Order />
         </div>
       </Navigation>
     </div>
