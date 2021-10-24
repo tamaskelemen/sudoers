@@ -194,7 +194,7 @@ class Form extends PureComponent {
               amount={sourceAmount}
               size="lg"
               onAmountChange={(amount) => this.doCalculation('source', amount)}
-              onCurrencyChange={() => alert('currency changed')}
+              onCurrencyChange={setSource}
               addon={null}
               searchPlaceholder="Type a currency or country"
               onCustomAction={() => alert('Custom action')}
