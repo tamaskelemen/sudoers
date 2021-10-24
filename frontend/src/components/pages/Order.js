@@ -37,7 +37,7 @@ class Order extends Component {
     componentDidMount() {
         orderList().then(response => {
             this.setState({
-                dataSource: response.data
+                dataSource: (response || {}).data
             })
         });
     }
@@ -61,7 +61,7 @@ class Order extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((row) => (
+                        {(data || []).map((row) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

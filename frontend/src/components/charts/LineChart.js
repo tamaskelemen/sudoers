@@ -82,7 +82,9 @@ const LineChart = (props) => {
         setPredictedBestRatePoints(bestRatePoints);
 
         const bestRate = getBestRate(bestRatePoints);
-        setRate(bestRate)
+        if (bestRate) {
+          setRate(bestRate)
+        }
       })
   }, [source, target, dueDate, riskLevel])
 

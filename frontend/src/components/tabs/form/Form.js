@@ -1,22 +1,10 @@
-import React, {PureComponent, useState} from 'react';
-import {
-  Button,
-  Checkbox,
-  ControlType,
-  DateLookup,
-  Modal,
-  MoneyInput, Position,
-  RadioGroup,
-  Scroll,
-  Size
-} from '@transferwise/components';
+import React, {PureComponent} from 'react';
+import {Button, Checkbox, ControlType, DateLookup, Modal, MoneyInput, Position, RadioGroup, Scroll, Size} from '@transferwise/components';
 import Steps from '../steps/Steps';
 import {setOrder} from '../../../client/api';
 import {convertDateToString} from '../../../utils';
 import currencies from './currencies';
-import SmartConverterTabs from '../SmartConverterTabs';
-import {TimeWalking} from "../../service/TimeWalking";
-import {setOrderStatus} from "../../../client/api";
+import {TimeWalking} from '../../service/TimeWalking';
 
 class Form extends PureComponent {
   constructor(props) {
@@ -41,9 +29,9 @@ class Form extends PureComponent {
       limit: '',
       smartConversion: true,
       dueDate: '',
-      calculation: {
-        sourceAmount: 0
-      }
+      // calculation: {
+      //   sourceAmount: 0
+      // }
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,22 +54,23 @@ class Form extends PureComponent {
   }
 
   handleSubmit() {
-    const { dueDate, source, amount, target, calculation, limit, smartConversion } = this.state;
+    const { dueDate, source, amount, target, limit, smartConversion } = this.state;
+    const { calculation } = this.props;
     const dueDateString = convertDateToString(dueDate);
 
     setOrder('2021-10-24', dueDateString, source.currency.toUpperCase(), target.currency.toUpperCase(), parseFloat(limit), calculation.targetAmount)
-      .then(function(response) {
+      .then(function (response) {
         document.getElementById('the-big-send-button').disabled = true;
-        document.getElementById('alert-msg').style.display = "block";
+        document.getElementById('alert-msg').style.display = 'block';
 
-        setTimeout(function() {
-            window.location.reload();
+        setTimeout(function () {
+          window.location.reload();
         }, 3000);
       });
   }
 
   setOpen(event) {
-    this.setState({open: event})
+    this.setState({ open: event })
   }
 
   setCheck(event) {
@@ -89,7 +78,7 @@ class Form extends PureComponent {
   }
 
   getDedactedAmount() {
-    return this.state.calculation.targetAmount / (this.props.rate);
+    return this.props.calculation.targetAmount / (this.props.rate);
   }
 
   getExpectedRate() {
@@ -97,7 +86,7 @@ class Form extends PureComponent {
   }
 
   getDueDateDedactedAmount() {
-    return this.state.calculation.targetAmount / this.getDueDateRate();
+    return this.props.calculation.targetAmount / this.getDueDateRate();
   }
 
   getStrategyRate() {
@@ -109,7 +98,7 @@ class Form extends PureComponent {
   }
 
   getCompareExchangeRate() {
-    return this.state.calculation.targetAmount * 0.035;
+    return this.props.calculation.targetAmount * 0.035;
   }
 
   changeTargetCurrency(event) {
@@ -122,7 +111,7 @@ class Form extends PureComponent {
 
   setDoDate(event) {
     this.props.setDueDate(event);
-    this.setState({ dueDate: event});
+    this.setState({ dueDate: event });
   }
 
   changeAmount(event) {
@@ -135,26 +124,22 @@ class Form extends PureComponent {
       const cost = sourceAmount * 0.0075;
       const weConvert = sourceAmount - cost;
       const targetAmount = weConvert * this.props.rate;
-      this.setState({
-        calculation: {
-          sourceAmount,
-          cost,
-          weConvert,
-          targetAmount
-        }
+      this.props.setCalculation({
+        sourceAmount,
+        cost,
+        weConvert,
+        targetAmount
       })
     } else {
       const targetAmount = amount
       const weConvert = targetAmount / this.props.rate;
       const cost = weConvert * 0.0075;
       const sourceAmount = weConvert + cost;
-      this.setState({
-        calculation: {
-          sourceAmount,
-          cost,
-          weConvert,
-          targetAmount
-        }
+      this.props.setCalculation({
+        sourceAmount,
+        cost,
+        weConvert,
+        targetAmount
       })
     }
   }
@@ -166,14 +151,16 @@ class Form extends PureComponent {
 
   render() {
     const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate, riskLevel, setRiskLevel } = this.props;
-    const { recurring } = this.props;
     const {
-      smartConversion, limit, amount, calculation: {
+      recurring, calculation: {
         sourceAmount,
         cost,
         weConvert,
         targetAmount
       }
+    } = this.props;
+    const {
+      smartConversion, limit, amount
     } = this.state;
 
     return (
@@ -345,64 +332,66 @@ class Form extends PureComponent {
             />
           </div>
 
-          <Button id="the-big-send-button" size={Size.MEDIUM} type={ControlType.POSITIVE} block onClick={this.handleSubmit} style={{transition: "none 0s, opacity 0.5s linear", marginBottom: "24px"}}>
+          <Button id="the-big-send-button" size={Size.MEDIUM} type={ControlType.POSITIVE} block onClick={this.handleSubmit}
+                  style={{ transition: 'none 0s, opacity 0.5s linear', marginBottom: '24px' }}>
             Place order
           </Button>
         </form>
-        <div id="alert-msg" className="alert d-flex alert-success" style={{display: "none", transition: 'visibility 0s, opacity 0.5s linear'}}>
-            Order has been placed successfully.
+        <div id="alert-msg" className="alert d-flex alert-success"
+             style={{ display: 'none', transition: 'visibility 0s, opacity 0.5s linear' }}>
+          Order has been placed successfully.
         </div>
         <div
-            className="demo-popup"
-            id="demo-popup">
+          className="demo-popup"
+          id="demo-popup">
         </div>
         <class
-            id="demo_button"
-            className="demo_button">
+          id="demo_button"
+          className="demo_button">
           <Button
-              onClick={
-                () => this.timeWalking(source.currency, target.currency, this.state.calculation.targetAmount)
-              }>
+            onClick={
+              () => this.timeWalking(source.currency, target.currency, this.props.calculation.targetAmount)
+            }>
             Time Walking
           </Button>
           <Modal
-              body={
-                <>
-                  <div className="modal__element">
-                    Dedacted amount: <span className="bold">{this.getDedactedAmount()}</span>
-                    <p className="help-block">
-                      <span className="display-block">Expected rate: {this.getExpectedRate()}</span>
-                      Rate by strategy: {this.getStrategyRate()}
-                    </p>
-                  </div>
-                  <div className="modal__element">
-                    Deducted if you exchange on the due date: <span className="bold">{this.getDueDateDedactedAmount()}</span>
-                    <p className="help-block">
-                      <span className="display-block">Due date rate: {this.getDueDateRate()}</span>
-                      Rate by strategy: {this.getStrategyRate()}
-                    </p>
-                  </div>
-                  <div className="modal__element">
-                    Compare to the bank's exchange rates you have saved: <span className="bold">{this.getCompareExchangeRate()}</span> €
-                    <p className="help-block">
-                      <span className="display-block">The exchange rate at the bank is higher then the Wise prizes</span>
-                    </p>
-                  </div>
-                  <div className="modal__element">
-                    Today date is: <span className="bold">{this.state.dueDate}</span>
-                    <p className="help-block">
-                      <span className="display-block">This is just for demo purposes</span>
-                    </p>
-                  </div>
-                </>
-              }
-              open={this.state.open}
-              scroll={Scroll.CONTENT}
-              position={Position.TOP}
-              onClose={() => this.setOpen(false)}
-              size={Size.MEDIUM}
-              title="Successful time traveling - demo"
-              className=""
+            body={
+              <>
+                <div className="modal__element">
+                  Dedacted amount: <span className="bold">{this.getDedactedAmount()}</span>
+                  <p className="help-block">
+                    <span className="display-block">Expected rate: {this.getExpectedRate()}</span>
+                    Rate by strategy: {this.getStrategyRate()}
+                  </p>
+                </div>
+                <div className="modal__element">
+                  Deducted if you exchange on the due date: <span className="bold">{this.getDueDateDedactedAmount()}</span>
+                  <p className="help-block">
+                    <span className="display-block">Due date rate: {this.getDueDateRate()}</span>
+                    Rate by strategy: {this.getStrategyRate()}
+                  </p>
+                </div>
+                <div className="modal__element">
+                  Compare to the bank's exchange rates you have saved: <span className="bold">{this.getCompareExchangeRate()}</span> €
+                  <p className="help-block">
+                    <span className="display-block">The exchange rate at the bank is higher then the Wise prizes</span>
+                  </p>
+                </div>
+                <div className="modal__element">
+                  Today date is: <span className="bold">{this.state.dueDate}</span>
+                  <p className="help-block">
+                    <span className="display-block">This is just for demo purposes</span>
+                  </p>
+                </div>
+              </>
+            }
+            open={this.state.open}
+            scroll={Scroll.CONTENT}
+            position={Position.TOP}
+            onClose={() => this.setOpen(false)}
+            size={Size.MEDIUM}
+            title="Successful time traveling - demo"
+            className=""
           />
         </class>
       </div>

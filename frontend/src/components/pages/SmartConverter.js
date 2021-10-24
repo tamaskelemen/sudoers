@@ -24,7 +24,12 @@ const SmartConverter = () => {
   });
   const [dueDate, setDueDate] = useState();
   const [rate, setRate] = useState();
-  const [calculation, setCalculation] = useState();
+  const [calculation, setCalculation] = useState({
+    sourceAmount: 0,
+    cost: 0,
+    weConvert: 0,
+    targetAmount: 0
+  });
   const [riskLevel, setRiskLevel] = useState({ value: 'low', label: 'Low risk' });
   const [refreshOrder, setRefreshOrder] = useState(false);
 

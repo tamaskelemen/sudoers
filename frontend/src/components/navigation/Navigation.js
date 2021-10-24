@@ -66,7 +66,7 @@ const Navigation = ({children}: {children: any}) => {
           <div className="nav-sidebar">
             <div className="nav-sidebar__top">
               <div className="nav-sidebar-brand"><a href="/user/account/"><img
-                src="https://wise.com/public-resources/assets/logos/wise/brand_logo_business_inverse.svg"
+                src="https://wise.com/public-resources/assets/logos/wise/brand_logo_inverse.svg"
                 alt="Wise Business"/></a></div>
               <div className="send-button"><a href="/send"
                                               className="btn btn-sm btn-block btn-success">Send
@@ -170,7 +170,7 @@ const Navigation = ({children}: {children: any}) => {
                 <button type="button" aria-expanded="false" className="profile-name btn-unstyled">
                   <span className="sr-only">Open or close account menu</span>
                   <div className="circle circle-inverse circle__user-avatar">TB</div>
-                  <h5 className="hidden-xs hidden-sm hidden-md m-l-1">Test Business</h5><span
+                  <h5 className="hidden-xs hidden-sm hidden-md m-l-1">Test Account</h5><span
                   className="tw-icon tw-icon-chevron-up tw-chevron chevron-color bottom m-l-1"
                   aria-hidden="true" role="presentation"><svg width="16" height="16"
                                                               fill="currentColor" focusable="false"><path

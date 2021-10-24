@@ -116,7 +116,7 @@ const Navigation = ({children}) => {
           <div className="nav-sidebar">
             <div className="nav-sidebar__top">
               <div className="nav-sidebar-brand"><a href="/user/account/"><img
-                src="https://wise.com/public-resources/assets/logos/wise/brand_logo_business_inverse.svg"
+                src="https://wise.com/public-resources/assets/logos/wise/brand_logo_inverse.svg"
                 alt="Wise Business"/></a></div>
               <div className="send-button"><a href="/send"
                                               className="btn btn-sm btn-block btn-success">Send
