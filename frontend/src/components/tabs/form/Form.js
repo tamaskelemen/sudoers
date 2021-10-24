@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Button, Checkbox, ControlType, DateLookup, Modal, MoneyInput, Position, RadioGroup, Scroll, Size} from '@transferwise/components';
 import Steps from '../steps/Steps';
-import {setOrder} from '../../../client/api';
+import {setOrder, setOrderStatus} from '../../../client/api';
 import {convertDateToString} from '../../../utils';
 import currencies from './currencies';
 import {TimeWalking} from '../../service/TimeWalking';
@@ -30,9 +30,6 @@ class Form extends PureComponent {
       smartConversion: true,
       dueDate: '',
       refreshOrder: props.refreshOrder
-      // calculation: {
-      //   sourceAmount: 0
-      // }
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,6 +42,27 @@ class Form extends PureComponent {
 
   componentDidMount() {
     this.doCalculation('source', 1000);
+    const self = this;
+
+    if (this.props.recurring === true) {
+      setTimeout(() => {
+        const arrClass = document.querySelectorAll(".grid-demo-button__demo");
+
+        for (let i of arrClass) {
+          let counter = 0;
+          i.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (++counter <= 1 && e.target.classList.contains("grid-demo-button__demo")) {
+              if (i.id) {
+                self.timeWalking(i.id);
+              }
+            }
+          })
+        }
+      },3000);
+    }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -142,10 +160,14 @@ class Form extends PureComponent {
     }
   }
 
-  timeWalking(source, target, amount) {
+  timeWalking(order_id) {
+    const self = this;
     this.setOpen(true);
-    TimeWalking(source.toUpperCase(), target.toUpperCase(), amount)
-        .then(() => this.props.setRefreshOrder(!this.props.refreshOrder));
+    setOrderStatus(order_id, "pending");
+    TimeWalking(this.state.source.currency.toUpperCase(), this.state.target.currency.toUpperCase(), this.props.calculation.targetAmount)
+       .then(() => {
+         // self.props.setRefreshOrder(!self.props.refreshOrder)
+       });
   }
 
   render() {
@@ -347,12 +369,6 @@ class Form extends PureComponent {
         <class
           id="demo_button"
           className="demo_button">
-          <Button
-            onClick={
-              () => this.timeWalking(source.currency, target.currency, this.props.calculation.targetAmount)
-            }>
-            Time Walking
-          </Button>
           <Modal
             body={
               <>

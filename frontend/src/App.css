@@ -427,3 +427,16 @@
 .modal__element {
   margin-bottom: 15px;
 }
+
+.anticon.anticon-edit {
+  /*display: none;*/
+}
+
+#time-walking-demo-button {
+
+}
+
+.hidden {
+  z-index: -9999;
+  display: none;
+}

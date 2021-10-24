@@ -1,4 +1,4 @@
-import {Component, forwardRef} from "react";
+import React, {Component, forwardRef} from "react";
 import {orderList} from "../../client/api";
 import {DeleteTwoTone, EditTwoTone, PauseCircleOutlined, PlayCircleOutlined} from "@ant-design/icons";
 import {
@@ -82,7 +82,15 @@ class Order extends Component {
                                              style={{cursor: "pointer", fontSize: "16px", color: "#00b9ff", padding: "10px"}}/>
                                              : <PlayCircleOutlined style={{cursor: "pointer", fontSize: "16px", color: "#00b9ff", padding: "10px"}}/> }
 
+                                    <button type="button"
+                                            className="btn btn-md np-btn np-btn-md btn-accent btn-priority-1 grid-demo-button__demo"
+                                            id={row._id}
+                                            data-attribute-id={row._id}>
+                                        DEMO <span id={row._id} className="hidden">{row.order_id}</span>
+                                    </button>
+                                    <input type="hidden" value={row.id}/>
                                     </TableCell>
+
                             </TableRow>
                         ))}
                     </TableBody>
