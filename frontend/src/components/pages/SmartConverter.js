@@ -31,9 +31,9 @@ const SmartConverter = () => {
   const [dueDate, setDueDate] = useState();
   const [rate, setRate] = useState();
 
-  function timeWalking() {
+  function timeWalking(source, target, amount) {
     setOpen(true);
-    TimeWalking();
+    TimeWalking(source, target, amount);
   }
 
   return (

@@ -1,5 +1,5 @@
 import {send} from "./BorderlessAccountService";
 
-export const TimeWalking = () => {
-    send("EUR", "GBP", 100);
+export const TimeWalking = (source, target, amount) => {
+    send(source, target, amount);
 }

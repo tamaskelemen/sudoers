@@ -105,7 +105,7 @@ export const orderList = function() {
 }
 
 export const conversion = function (borderlessAccountId, quoteId) {
-    let uri = "/api/borderless-accounts";
+    let uri = "/api/borderless-accounts/";
     return axios.post(baseUrl + uri + borderlessAccountId, {
         quoteId: quoteId
     });
