@@ -44,9 +44,6 @@ const SmartConverterTabs = (props) => {
         selected={open}
         onTabSelect={(index) => setOpen(index)}
       />
-    <div className="row grid__smart-converter">
-        <Order />
-    </div>
     </div>
   );
 }
