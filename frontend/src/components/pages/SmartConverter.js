@@ -4,9 +4,9 @@ import LineChart from '../charts/LineChart';
 import SmartConverterTabs from '../tabs/SmartConverterTabs';
 import {useParams} from 'react-router-dom';
 import currencies from '../tabs/form/currencies';
-import {Alert, Sentiment, Tabs} from '@transferwise/components';
+import {Alert, Sentiment} from '@transferwise/components';
 import Order from './Order';
-import Tutorial from "../tutorial/Tutorial";
+import Tutorial from '../tutorial/Tutorial';
 
 const SmartConverter = () => {
   const [open, setOpen] = React.useState(false);
@@ -61,7 +61,7 @@ const SmartConverter = () => {
               />
             </div>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-4" style={{ zIndex: 1 }}>
             <SmartConverterTabs source={source} setSource={setSource}
                                 target={target} setTarget={setTarget}
                                 dueDate={dueDate} setDueDate={setDueDate}
