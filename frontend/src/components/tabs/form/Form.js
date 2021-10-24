@@ -4,6 +4,7 @@ import Steps from '../steps/Steps';
 import {setOrder} from '../../../client/api';
 import {convertDateToString} from '../../../utils';
 import currencies from './currencies';
+import SmartConverterTabs from '../SmartConverterTabs';
 
 class Form extends PureComponent {
 
@@ -116,7 +117,7 @@ class Form extends PureComponent {
   }
 
   render() {
-    const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = this.props;
+    const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate, riskLevel, setRiskLevel } = this.props;
     const { recurring } = this.props;
     const {
       smartConversion, limit, amount, calculation: {
@@ -254,6 +255,7 @@ class Form extends PureComponent {
                  smartConversion={smartConversion}
                  cost={`${Number.parseFloat(cost).toPrecision(4)} ${source.value}`}
                  weConvert={`${Number.parseFloat(weConvert).toPrecision(4)} ${source.value}`}
+                 riskLevel={riskLevel} setRiskLevel={setRiskLevel}
           />
 
           {/*<label id="labelID" htmlFor="switchId">*/}
