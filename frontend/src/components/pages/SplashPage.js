@@ -5,7 +5,7 @@ class SplashPage extends PureComponent {
     componentDidMount() {
         var path = window.location.hash;
         document.getElementById("currency").innerHTML = path.split('/')[2];
-        document.getElementById("smartexchange-link").href = "/#/smartexchange/" + path.split('/')[2];
+        document.getElementById("smartconverter-link").href = "/#/smartconverter/" + path.split('/')[2];
 
         var money_waste = false;
 
@@ -134,8 +134,8 @@ class SplashPage extends PureComponent {
                             </div>
                         </div>
                         <div className="send-button splash-page__button">
-                            <a id="smartexchange-link" href="#" className="btn btn-sm btn-block btn-success splash-page__button--big">
-                                <span className="display-block">Lets start</span> saving
+                            <a id="smartconverter-link" href="#" className="btn btn-sm btn-block btn-success splash-page__button--big">
+                                <span className="display-block">Let's start</span> saving
                             </a>
                         </div>
                     </div>
