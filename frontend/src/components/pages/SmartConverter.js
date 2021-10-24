@@ -35,8 +35,10 @@ const SmartConverter = () => {
 
   function timeWalking(source, target, amount) {
     setOpen(true);
-    TimeWalking(source, target, amount);
-    setRefreshOrder(!refreshOrder);
+    TimeWalking(source, target, amount)
+        .then(() => {
+            setRefreshOrder(!refreshOrder);
+        })
   }
 
   return (
