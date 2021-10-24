@@ -22,6 +22,18 @@ class Order extends Component {
         }
     }
 
+    componentWillReceiveProps(props) {
+        console.log("refresh");
+        const { refresh } = props;
+        if (props.refresh !== refresh) {
+            orderList().then(response => {
+                this.setState({
+                    dataSource: response.data
+                })
+            });
+        }
+    }
+
     componentDidMount() {
         orderList().then(response => {
             this.setState({
@@ -32,7 +44,6 @@ class Order extends Component {
 
     render() {
         let data = this.state.dataSource;
-        console.log(data);
         return (
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table" pageSize={5}

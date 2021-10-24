@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Navigation from '../navigation/Navigation';
 import LineChart from '../charts/LineChart';
 import SmartConverterTabs from '../tabs/SmartConverterTabs';
 import Order from "./Order";
+import {useParams} from 'react-router-dom';
+import currencies from '../tabs/form/currencies';
 
 const SmartConverter = () => {
   const [open, setOpen] = React.useState(false);
@@ -22,6 +24,15 @@ const SmartConverter = () => {
   });
   const [dueDate, setDueDate] = useState();
   const [rate, setRate] = useState();
+  const [calculation, setCalculation] = useState();
+  const [riskLevel, setRiskLevel] = useState({ value: 'low', label: 'Low risk' });
+  const [refreshOrder, setRefreshOrder] = useState(false);
+
+  let { source: sourceFromPath } = useParams();
+
+  useEffect(() => {
+    setSource(currencies.find(currency => currency.value === sourceFromPath))
+  }, [])
 
   return (
     <div>
@@ -31,13 +42,18 @@ const SmartConverter = () => {
             <LineChart source={source} setSource={setSource}
                        target={target} setTarget={setTarget}
                        dueDate={dueDate} setDueDate={setDueDate}
-                       rate={rate} setRate={setRate} />
+                       calculation={calculation} setCalculation={setCalculation}
+                       rate={rate} setRate={setRate}
+                       riskLevel={riskLevel} setRiskLevel={setRiskLevel}
+                />
           </div>
           <div className="col-sm-4">
             <SmartConverterTabs source={source} setSource={setSource}
                                 target={target} setTarget={setTarget}
                                 dueDate={dueDate} setDueDate={setDueDate}
-                                rate={rate} setRate={setRate}/>
+                                calculation={calculation} setCalculation={setCalculation}
+                                rate={rate} setRate={setRate}
+                                riskLevel={riskLevel} setRiskLevel={setRiskLevel}/>
           </div>
         </div>
         <div className="row grid__smart-converter">

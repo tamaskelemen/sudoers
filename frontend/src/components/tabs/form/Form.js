@@ -14,6 +14,7 @@ import Steps from '../steps/Steps';
 import {setOrder} from '../../../client/api';
 import {convertDateToString} from '../../../utils';
 import currencies from './currencies';
+import SmartConverterTabs from '../SmartConverterTabs';
 import {TimeWalking} from "../../service/TimeWalking";
 import {setOrderStatus} from "../../../client/api";
 
@@ -65,12 +66,18 @@ class Form extends PureComponent {
   }
 
   handleSubmit() {
-    const { dueDate, source, target, amount, limit, smartConversion } = this.state;
+    const { dueDate, source, amount, target, calculation, limit, smartConversion } = this.state;
+    const dueDateString = convertDateToString(dueDate);
 
-    const dueDateString = convertDateToString(dueDate)
+    setOrder('2021-10-24', dueDateString, source.currency.toUpperCase(), target.currency.toUpperCase(), parseFloat(limit), calculation.targetAmount)
+      .then(function(response) {
+        document.getElementById('the-big-send-button').disabled = true;
+        document.getElementById('alert-msg').style.display = "block";
 
-    setOrder('2021-10-24', dueDateString, source.currency, target.currency, smartConversion ? null : parseFloat(limit), amount)
-      .then(console.log);
+        setTimeout(function() {
+            window.location.reload();
+        }, 3000);
+      });
   }
 
   setOpen(event) {
@@ -115,6 +122,7 @@ class Form extends PureComponent {
 
   setDoDate(event) {
     this.props.setDueDate(event);
+    this.setState({ dueDate: event});
   }
 
   changeAmount(event) {
@@ -157,7 +165,7 @@ class Form extends PureComponent {
   }
 
   render() {
-    const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = this.props;
+    const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate, riskLevel, setRiskLevel } = this.props;
     const { recurring } = this.props;
     const {
       smartConversion, limit, amount, calculation: {
@@ -295,6 +303,7 @@ class Form extends PureComponent {
                  smartConversion={smartConversion}
                  cost={`${Number.parseFloat(cost).toPrecision(4)} ${source.value}`}
                  weConvert={`${Number.parseFloat(weConvert).toPrecision(4)} ${source.value}`}
+                 riskLevel={riskLevel} setRiskLevel={setRiskLevel}
           />
 
           {/*<label id="labelID" htmlFor="switchId">*/}
@@ -336,11 +345,13 @@ class Form extends PureComponent {
             />
           </div>
 
-          <Button size={Size.MEDIUM} type={ControlType.POSITIVE} block onClick={this.handleSubmit}>
-            Continue
+          <Button id="the-big-send-button" size={Size.MEDIUM} type={ControlType.POSITIVE} block onClick={this.handleSubmit} style={{transition: "none 0s, opacity 0.5s linear", marginBottom: "24px"}}>
+            Place order
           </Button>
         </form>
-
+        <div id="alert-msg" className="alert d-flex alert-success" style={{display: "none", transition: 'visibility 0s, opacity 0.5s linear'}}>
+            Order has been placed successfully.
+        </div>
         <div
             className="demo-popup"
             id="demo-popup">
