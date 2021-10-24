@@ -5,6 +5,18 @@ import {convertDateToString} from '../../utils';
 import 'chartjs-adapter-date-fns';
 
 
+const convertRiskLevelToNumber = (riskLevel) => {
+  switch (riskLevel.value) {
+    case 'medium':
+      return 0.001;
+    case 'high':
+      return 0.002
+    case 'low':
+    default:
+      return 0.0005;
+  }
+}
+
 const generatePredictions = (points, dueDate, risk = 0.001, frequency = 3) => {
   const dateInFuture = new Date();
   dateInFuture.setDate(dateInFuture.getDate() + 60)
@@ -29,7 +41,7 @@ const generatePredictions = (points, dueDate, risk = 0.001, frequency = 3) => {
 const getBestRatePoints = (data, points) => {
   const bestRate = points.reduce((best, point) => Math.max(best, parseFloat(point.y)), 0)
 
-  const startDate = data[0].x;
+  const startDate = (data[0] || {}).x;
   const endDate = points[points.length - 1].x
 
   return [{ x: startDate, y: bestRate }, { x: endDate, y: bestRate }]
@@ -38,7 +50,7 @@ const getBestRatePoints = (data, points) => {
 const getBestRate = (bestRatePoints) => bestRatePoints[0].y
 
 const LineChart = (props) => {
-  const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate } = props;
+  const { source, setSource, target, setTarget, dueDate, setDueDate, rate, setRate, riskLevel, setRiskLevel } = props;
 
   const [datapoints, setDatapoints] = useState([]);
   const [predictedDataPoints, setPredictedDataPoints] = useState([]);
@@ -63,7 +75,7 @@ const LineChart = (props) => {
         const data = convertResponseToData(response);
         setDatapoints(data);
 
-        const points = generatePredictions(data, dueDate)
+        const points = generatePredictions(data, dueDate, convertRiskLevelToNumber(riskLevel))
         setPredictedDataPoints(points);
 
         const bestRatePoints = getBestRatePoints(data, points);
@@ -72,7 +84,7 @@ const LineChart = (props) => {
         const bestRate = getBestRate(bestRatePoints);
         setRate(bestRate)
       })
-  }, [source, target, dueDate])
+  }, [source, target, dueDate, riskLevel])
 
   // useEffect(() => {
   //   if (periodStart != null && periodEnd != null && (source.currency !== '' &&

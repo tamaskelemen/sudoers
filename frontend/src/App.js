@@ -37,7 +37,7 @@ function App() {
             <Route path="/splashpage/:source">
               <SplashPage/>
             </Route>
-            <Route path="/smartconverter">
+            <Route path="/smartconverter/:source">
               <SmartConverter/>
             </Route>
             <Route path="/user/account/balances/:balance_id">

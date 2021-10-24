@@ -1,6 +1,7 @@
 import React from 'react';
+import {Select} from '@transferwise/components';
 
-const Steps = ({ rate = '', smartConversion = false, cost = '', weConvert = '' }) => {
+const Steps = ({ rate = '', smartConversion = false, cost = '', weConvert = '', riskLevel, setRiskLevel }) => {
   return (
     <div>
       <ul
@@ -27,7 +28,27 @@ const Steps = ({ rate = '', smartConversion = false, cost = '', weConvert = '' }
           className="tw-calculator-breakdown-item__right"><span className="np-popover"><span className="d-inline-block"><button
           type="button" className="btn-unstyled" data-toggle="popover"><span data-tracking-id="calculator-fixed-rate-tooltip"
                                                                              id="estimatedLabel">Estimated rate</span></button></span><div
-          className="np-size-swapper d-inline-flex" style={{ visibility: 'visible' }}></div></span></span></li>
+          className="np-size-swapper d-inline-flex" style={{ visibility: 'visible' }}></div></span></span>
+
+          <Select
+            size="sm"
+            dropdownRight="xs"
+            dropdownWidth="lg"
+            inverse={false}
+            block
+            selected={riskLevel}
+            disabled={false}
+            onChange={setRiskLevel}
+            required={false}
+            dropdownUp={false}
+            options={[
+              { header: 'Risk level' },
+              { value: 'low', label: 'Low risk' },
+              { value: 'medium', label: 'Medium risk' },
+              { value: 'high', label: 'High risk' },
+            ]}
+          />
+        </li>
       </ul>
     </div>
   );
