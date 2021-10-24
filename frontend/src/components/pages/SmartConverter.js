@@ -34,13 +34,13 @@ const SmartConverter = () => {
     setSource(currencies.find(currency => currency.value === sourceFromPath))
   }, [])
 
-  function timeWalking(source, target, amount) {
-    setOpen(true);
-    TimeWalking(source, target, amount)
-        .then(() => {
-            setRefreshOrder(!refreshOrder);
-        })
-  }
+  // function timeWalking(source, target, amount) {
+  //   setOpen(true);
+  //   TimeWalking(source, target, amount)
+  //       .then(() => {
+  //           setRefreshOrder(!refreshOrder);
+  //       })
+  // }
 
   return (
     <div>
@@ -63,9 +63,6 @@ const SmartConverter = () => {
                                 rate={rate} setRate={setRate}
                                 riskLevel={riskLevel} setRiskLevel={setRiskLevel}/>
           </div>
-        </div>
-        <div className="row grid__smart-converter">
-          <Order />
         </div>
       </Navigation>
     </div>
