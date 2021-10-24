@@ -1,16 +1,29 @@
-import React, {PureComponent} from 'react';
-import {Button, Checkbox, ControlType, DateLookup, MoneyInput, RadioGroup, Size} from '@transferwise/components';
+import React, {PureComponent, useState} from 'react';
+import {
+  Button,
+  Checkbox,
+  ControlType,
+  DateLookup,
+  Modal,
+  MoneyInput, Position,
+  RadioGroup,
+  Scroll,
+  Size
+} from '@transferwise/components';
 import Steps from '../steps/Steps';
 import {setOrder} from '../../../client/api';
 import {convertDateToString} from '../../../utils';
 import currencies from './currencies';
 import SmartConverterTabs from '../SmartConverterTabs';
+import {TimeWalking} from "../../service/TimeWalking";
+import {setOrderStatus} from "../../../client/api";
 
 class Form extends PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {
+      open: false,
+      useState: '',
       source: {
         value: 'USD',
         label: 'USD',
@@ -28,7 +41,9 @@ class Form extends PureComponent {
       limit: '',
       smartConversion: true,
       dueDate: '',
-      calculation: {}
+      calculation: {
+        sourceAmount: 0
+      }
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -51,7 +66,7 @@ class Form extends PureComponent {
   }
 
   handleSubmit() {
-    const { dueDate, source, target, calculation, limit, smartConversion } = this.state;
+    const { dueDate, source, amount, target, calculation, limit, smartConversion } = this.state;
     const dueDateString = convertDateToString(dueDate);
 
     setOrder('2021-10-24', dueDateString, source.currency.toUpperCase(), target.currency.toUpperCase(), parseFloat(limit), calculation.targetAmount)
@@ -65,8 +80,36 @@ class Form extends PureComponent {
       });
   }
 
+  setOpen(event) {
+    this.setState({open: event})
+  }
+
   setCheck(event) {
     this.setState({ smartConversion: !this.state.smartConversion });
+  }
+
+  getDedactedAmount() {
+    return this.state.calculation.targetAmount / (this.props.rate);
+  }
+
+  getExpectedRate() {
+    return this.props.rate;
+  }
+
+  getDueDateDedactedAmount() {
+    return this.state.calculation.targetAmount / this.getDueDateRate();
+  }
+
+  getStrategyRate() {
+    return this.props.rate * 1.045;
+  }
+
+  getDueDateRate() {
+    return this.props.rate * 0.94;
+  }
+
+  getCompareExchangeRate() {
+    return this.state.calculation.targetAmount * 0.035;
   }
 
   changeTargetCurrency(event) {
@@ -114,6 +157,11 @@ class Form extends PureComponent {
         }
       })
     }
+  }
+
+  timeWalking(source, target, amount) {
+    this.setOpen(true);
+    TimeWalking(source.toUpperCase(), target.toUpperCase(), amount);
   }
 
   render() {
@@ -304,6 +352,59 @@ class Form extends PureComponent {
         <div id="alert-msg" className="alert d-flex alert-success" style={{display: "none", transition: 'visibility 0s, opacity 0.5s linear'}}>
             Order has been placed successfully.
         </div>
+        <div
+            className="demo-popup"
+            id="demo-popup">
+        </div>
+        <class
+            id="demo_button"
+            className="demo_button">
+          <Button
+              onClick={
+                () => this.timeWalking(source.currency, target.currency, this.state.calculation.targetAmount)
+              }>
+            Time Walking
+          </Button>
+          <Modal
+              body={
+                <>
+                  <div className="modal__element">
+                    Dedacted amount: <span className="bold">{this.getDedactedAmount()}</span>
+                    <p className="help-block">
+                      <span className="display-block">Expected rate: {this.getExpectedRate()}</span>
+                      Rate by strategy: {this.getStrategyRate()}
+                    </p>
+                  </div>
+                  <div className="modal__element">
+                    Deducted if you exchange on the due date: <span className="bold">{this.getDueDateDedactedAmount()}</span>
+                    <p className="help-block">
+                      <span className="display-block">Due date rate: {this.getDueDateRate()}</span>
+                      Rate by strategy: {this.getStrategyRate()}
+                    </p>
+                  </div>
+                  <div className="modal__element">
+                    Compare to the bank's exchange rates you have saved: <span className="bold">{this.getCompareExchangeRate()}</span> €
+                    <p className="help-block">
+                      <span className="display-block">The exchange rate at the bank is higher then the Wise prizes</span>
+                    </p>
+                  </div>
+                  <div className="modal__element">
+                    Today date is: <span className="bold">{this.state.dueDate}</span>
+                    <p className="help-block">
+                      <span className="display-block">This is just for demo purposes</span>
+                    </p>
+                  </div>
+                </>
+              }
+              open={this.state.open}
+              scroll={Scroll.CONTENT}
+              position={Position.TOP}
+              onClose={() => this.setOpen(false)}
+              size={Size.MEDIUM}
+              title="Successful time traveling - demo"
+              className=""
+          />
+        </class>
       </div>
     );
   }

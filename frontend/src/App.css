@@ -398,3 +398,18 @@
 /*  width: 480px;*/
 /*  height: 300px;*/
 /*}*/
+
+.help-block {
+  color: #999;
+  font-size: 12px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.modal__element {
+  margin-bottom: 15px;
+}

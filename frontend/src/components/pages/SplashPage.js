@@ -4,8 +4,10 @@ import Navigation from '../navigation/SplashNavigation';
 class SplashPage extends PureComponent {
     componentDidMount() {
         var path = window.location.hash;
-        document.getElementById("currency").innerHTML = path.split('/')[2];
-        document.getElementById("smartconverter-link").href = "/#/smartconverter/" + path.split('/')[2];
+        setTimeout(function () {
+            document.getElementById("currency").innerHTML = path.split('/')[2];
+            document.getElementById("smartconverter-link").href = "/#/smartconverter/" + path.split('/')[2];
+        }, 1000);
 
         var money_waste = false;
 
@@ -58,13 +60,21 @@ class SplashPage extends PureComponent {
             mesint("splash-page__saved-money-h1", 158695467, 9586954679, 19999999999999);
 
             if (money_waste == true) {
-                document.getElementById("splash-page__saved-money-h1").style.color = '#c22e2e';
+                if (document.getElementById("splash-page__saved-money-h1")) {
+                    document.getElementById("splash-page__saved-money-h1").style.color = '#c22e2e';
+                }
             } else {
-                document.getElementById("splash-page__saved-money-h1").style.color = '#37517e';
+                if (document.getElementById("splash-page__saved-money-h1")) {
+                    document.getElementById("splash-page__saved-money-h1").style.color = '#37517e';
+                }
             }
 
-            animateValue("splash-page__satisfied-customers-h1", 27869546, 9586954679, 9999999999999);
-            animateValue("splash-page__opt-transactions", 34987657, 9586954679, 9999999999999);
+            if (document.getElementById("splash-page__satisfied-customers-h1")) {
+                animateValue("splash-page__satisfied-customers-h1", 27869546, 9586954679, 9999999999999);
+            }
+            if (document.getElementById("splash-page__opt-transactions")) {
+                animateValue("splash-page__opt-transactions", 34987657, 9586954679, 9999999999999);
+            }
         }, 2000)
     }
   render() {
