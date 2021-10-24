@@ -31,10 +31,12 @@ const SmartConverter = () => {
   const [dueDate, setDueDate] = useState();
   const [rate, setRate] = useState();
   const [calculation, setCalculation] = useState();
+  const [refreshOrder, setRefreshOrder] = useState(false);
 
   function timeWalking(source, target, amount) {
     setOpen(true);
     TimeWalking(source, target, amount);
+    setRefreshOrder(!refreshOrder);
   }
 
   return (
@@ -55,7 +57,7 @@ const SmartConverter = () => {
           </div>
         </div>
         <div className="row grid__smart-converter">
-          <Order />
+          <Order refresh={refreshOrder}/>
         </div>
       </Navigation>
         <div
