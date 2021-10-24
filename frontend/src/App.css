@@ -368,9 +368,10 @@
 }
 
 #demo_button {
-  position: absolute;
-  top: -13%;
-  right: -180%;
+  position: fixed;
+  top: -96px;
+  z-index: 100000000;
+  left: -205px;
 }
 
 .demo_button_image {

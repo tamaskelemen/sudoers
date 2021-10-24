@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import Navigation from '../navigation/Navigation';
 import LineChart from '../charts/LineChart';
 import SmartConverterTabs from '../tabs/SmartConverterTabs';
-import Order from "./Order";
 import {useParams} from 'react-router-dom';
 import currencies from '../tabs/form/currencies';
+import {Alert, Sentiment, Tabs} from '@transferwise/components';
+import Order from './Order';
 
 const SmartConverter = () => {
   const [open, setOpen] = React.useState(false);
@@ -58,7 +59,13 @@ const SmartConverter = () => {
                        calculation={calculation} setCalculation={setCalculation}
                        rate={rate} setRate={setRate}
                        riskLevel={riskLevel} setRiskLevel={setRiskLevel}
-                />
+            />
+            <div className="m-a-3">
+              <Alert
+                message="The yellow dotted line is a predicted value by an algorithm. Our science team created these predictions, but the market can be different from it."
+                type={Sentiment.WARNING}
+              />
+            </div>
           </div>
           <div className="col-sm-4">
             <SmartConverterTabs source={source} setSource={setSource}
@@ -68,11 +75,13 @@ const SmartConverter = () => {
                                 rate={rate} setRate={setRate}
                                 riskLevel={riskLevel} setRiskLevel={setRiskLevel}/>
           </div>
+          <div className="col-xs-12">
+            <div className="row grid__smart-converter">
+              <Order />
+            </div>
+          </div>
         </div>
       </Navigation>
-      <div id="yellow-warning">
-        <span id="yellow-warning__bold">WARNING:</span> The yellow dotted line is a predicted value by an algorithm. Our science team created these predictions, but the market can be different from it.
-      </div>
     </div>
   );
 };

@@ -358,23 +358,23 @@ class Form extends PureComponent {
             body={
               <>
                 <div className="modal__element">
-                  Dedacted amount: <span className="bold">{this.getDedactedAmount()}</span>
+                  Deducted amount: <span className="bold">{Number.parseFloat(this.getDedactedAmount()).toPrecision(6)}</span>
                   <p className="help-block">
                     <span className="display-block">Expected rate: {this.getExpectedRate()}</span>
                     Rate by strategy: {this.getStrategyRate()}
                   </p>
                 </div>
                 <div className="modal__element">
-                  Deducted if you exchange on the due date: <span className="bold">{this.getDueDateDedactedAmount()}</span>
+                  Deducted if you exchange on the due date: <span className="bold">{Number.parseFloat(this.getDueDateDedactedAmount()).toPrecision(6)}</span>
                   <p className="help-block">
                     <span className="display-block">Due date rate: {this.getDueDateRate()}</span>
                     Rate by strategy: {this.getStrategyRate()}
                   </p>
                 </div>
                 <div className="modal__element">
-                  Compare to the bank's exchange rates you have saved: <span className="bold">{this.getCompareExchangeRate()}</span> €
+                  Compare to the bank's exchange rates you have saved: <span className="bold">{Number.parseFloat(this.getCompareExchangeRate()).toPrecision(6)}</span> €
                   <p className="help-block">
-                    <span className="display-block">The exchange rate at the bank is higher then the Wise prizes</span>
+                    <span className="display-block">The exchange rate at the bank is higher then the Wise prices</span>
                   </p>
                 </div>
                 <div className="modal__element">
