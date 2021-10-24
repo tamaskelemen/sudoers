@@ -1,22 +1,21 @@
 import React from 'react';
-import * as api from "../../client/api";
-import BalanceList from "./BalanceList";
+import BalanceList from './BalanceList';
 
-const Navigation = ({children}: {children: any}) => {
+const Navigation = ({ children }: {children: any}) => {
   return (
     <div className="balances-content">
       <div className="page-layout column-layout">
         <div className="mobileNav">
           <ul className="mobileNav__items">
             <li className="mobileNavItem"><a className="mobileNavItem__link"
-                                             href="/user/account/"><span
+                                             Test Account><span
               className="mobileNavItem__icon"><span className="tw-icon tw-icon-home "
                                                     aria-hidden="true" role="presentation"><svg
               width="24" height="24" fill="currentColor" focusable="false"><path
               d="M23 11L12 2 .895 11l1.224 1.551L12 4.518l9.775 8.033L23 11zM6 14v6h12v-6h2v8H4v-8h2z"></path></svg></span></span><span
               className="mobileNavItem__label">Home</span></a></li>
             <li className="mobileNavItem"><a className="mobileNavItem__link"
-                                             href="/card-management"><span
+                                             Test Account><span
               className="mobileNavItem__icon"><span className="tw-icon tw-icon-card-transferwise "
                                                     aria-hidden="true" role="presentation"><svg
               width="24" height="24" fill="currentColor" focusable="false"><path
@@ -25,7 +24,7 @@ const Navigation = ({children}: {children: any}) => {
               d="M2 4a2 2 0 00-2 2v12a2 2 0 002 2h20a2 2 0 002-2V6a2 2 0 00-2-2H2zm0 2h20v3.657a3.251 3.251 0 000 6.186V18H2V6z"></path></svg></span></span><span
               className="mobileNavItem__label">Card</span></a></li>
             <li className="mobileNavItem mobileNavItem--call-to-action"><a
-              className="mobileNavItem__link" href="/send"><span
+              className="mobileNavItem__link" Test Account><span
               className="mobileNavItem__icon"><span className="tw-icon tw-icon-send "
                                                     aria-hidden="true" role="presentation"><svg
               width="24" height="24" fill="currentColor" focusable="false"><path
@@ -34,7 +33,7 @@ const Navigation = ({children}: {children: any}) => {
               d="M12.75 18.5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0zm-2 0a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path></svg></span></span><span
               className="mobileNavItem__label">Send</span></a></li>
             <li className="mobileNavItem"><a className="mobileNavItem__link"
-                                             href="/recipients/"><span
+                                             Test Account><span
               className="mobileNavItem__icon"><span className="tw-icon tw-icon-recipients "
                                                     aria-hidden="true" role="presentation"><svg
               width="24" height="24" fill="currentColor" focusable="false"><path
@@ -43,7 +42,7 @@ const Navigation = ({children}: {children: any}) => {
               d="M4 9.5a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM8.5 7a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"></path><path
               d="M17 20.948V22h-2v-1.052c0-.732-.258-1.257-.658-1.51C13.369 18.82 11.515 18 8.5 18c-3.015 0-4.87.821-5.842 1.437-.4.254-.658.78-.658 1.511V22H0v-1.052c0-1.14.407-2.452 1.588-3.2C2.873 16.934 5.098 16 8.5 16c3.403 0 5.627.934 6.912 1.748 1.18.748 1.588 2.06 1.588 3.2z"></path></svg></span></span><span
               className="mobileNavItem__label">Recipients</span></a></li>
-            <li className="mobileNavItem"><a className="mobileNavItem__link" href="/account/balances"><span
+            <li className="mobileNavItem"><a className="mobileNavItem__link" Test Account><span
               className="mobileNavItem__icon"><span className="tw-icon tw-icon-profile "
                                                     aria-hidden="true" role="presentation"><svg
               width="24" height="24" fill="currentColor" focusable="false"><path fill-rule="evenodd"
@@ -65,21 +64,21 @@ const Navigation = ({children}: {children: any}) => {
         <div className="sidebar-container column-layout-left bg-primary">
           <div className="nav-sidebar">
             <div className="nav-sidebar__top">
-              <div className="nav-sidebar-brand"><a href="/user/account/"><img
+              <div className="nav-sidebar-brand"><a Test Account><img
                 src="https://wise.com/public-resources/assets/logos/wise/brand_logo_inverse.svg"
                 alt="Wise Business"/></a></div>
-              <div className="send-button"><a href="/send"
+              <div className="send-button"><a Test Account
                                               className="btn btn-sm btn-block btn-success">Send
                 money</a></div>
             </div>
             <div className="nav-sidebar__body">
               <div className="menu-section">
-                <div className="menu-item "><a href="/user/account/"><span
+                <div className="menu-item "><a Test Account><span
                   className="tw-icon tw-icon-home " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
                   d="M16 6.4L8 0 0 6.4l1 1.25 7-5.601 7 5.6 1-1.25zM3.8 9v5.2h8.4V9h1.6v6.8H2.2V9h1.6z"></path></svg></span>Home</a>
                 </div>
-                <div className="menu-item "><a href="/card-management"><span
+                <div className="menu-item "><a Test Account><span
                   className="tw-icon tw-icon-card-transferwise " aria-hidden="true"
                   role="presentation"><svg width="16" height="16" fill="currentColor"
                                            focusable="false"><path
@@ -87,7 +86,7 @@ const Navigation = ({children}: {children: any}) => {
                   fill-rule="evenodd" clip-rule="evenodd"
                   d="M0 3a1 1 0 011-1h14a1 1 0 011 1v10a1 1 0 01-1 1H1a1 1 0 01-1-1V3zm1.6 9.4V3.6h12.8v2.472A2.495 2.495 0 0012.5 8.5a2.495 2.495 0 001.9 2.428V12.4H1.6z"></path></svg></span>Cards</a>
                 </div>
-                <div className="menu-item "><a href="/recipients/"><span
+                <div className="menu-item "><a Test Account><span
                   className="tw-icon tw-icon-recipients " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
                   d="M9.5.2A3.3 3.3 0 006.56 2a4.483 4.483 0 011.687.352 1.7 1.7 0 112.402 2.402c.219.52.343 1.089.35 1.686A3.3 3.3 0 009.5.2zM13.077 10.719c-.9-.46-2.13-.906-3.518-.919a4.511 4.511 0 001.076-1.523c1.263.171 2.353.6 3.17 1.017 1.387.708 1.995 2.175 1.995 3.558V13h-1.6v-.148c0-.966-.417-1.773-1.123-2.133z"></path><path
@@ -95,21 +94,21 @@ const Navigation = ({children}: {children: any}) => {
                   d="M3.2 6.5a3.3 3.3 0 116.6 0 3.3 3.3 0 01-6.6 0zm3.3-1.7a1.7 1.7 0 100 3.4 1.7 1.7 0 000-3.4z"></path><path
                   d="M10.805 12.294C9.752 11.756 8.245 11.2 6.5 11.2c-1.745 0-3.252.556-4.305 1.094C.808 13.002.2 14.469.2 15.852V16h1.6v-.148c0-.966.417-1.773 1.123-2.133.913-.467 2.166-.919 3.577-.919s2.664.452 3.577.919c.706.36 1.123 1.167 1.123 2.133V16h1.6v-.148c0-1.383-.608-2.85-1.995-3.558z"></path></svg></span>Recipients</a>
                 </div>
-                <div className="menu-item "><a href="/team"><span className="tw-icon tw-icon-team "
+                <div className="menu-item "><a Test Account><span className="tw-icon tw-icon-team "
                                                                   aria-hidden="true"
                                                                   role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
                   fill-rule="evenodd" clip-rule="evenodd"
                   d="M3.5.2a3.3 3.3 0 100 6.6 3.3 3.3 0 000-6.6zM1.8 3.5a1.7 1.7 0 113.4 0 1.7 1.7 0 01-3.4 0zM3.5 9.2a3.3 3.3 0 100 6.6 3.3 3.3 0 000-6.6zm-1.7 3.3a1.7 1.7 0 113.4 0 1.7 1.7 0 01-3.4 0zM9.2 3.5a3.3 3.3 0 116.6 0 3.3 3.3 0 01-6.6 0zm3.3-1.7a1.7 1.7 0 100 3.4 1.7 1.7 0 000-3.4zM12.5 9.2a3.3 3.3 0 100 6.6 3.3 3.3 0 000-6.6zm-1.7 3.3a1.7 1.7 0 113.4 0 1.7 1.7 0 01-3.4 0z"></path></svg></span>Team<span
                   className="menu-item__badge">New</span></a></div>
-                <div className="menu-item "><a href="/account/"><span
+                <div className="menu-item "><a Test Account><span
                   className="tw-icon tw-icon-profile " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
                   fill-rule="evenodd" clip-rule="evenodd"
                   d="M8 0C5.847 0 4.102 1.723 4.102 3.848S5.847 7.696 8 7.696c2.152 0 3.897-1.723 3.897-3.848S10.152 0 8 0zM5.743 3.848c0-1.23 1.01-2.228 2.257-2.228 1.246 0 2.256.998 2.256 2.228 0 1.23-1.01 2.228-2.256 2.228-1.246 0-2.257-.997-2.257-2.228z"></path><path
                   d="M8 9.127c2.487 0 4.604.858 5.967 1.595 1.391.752 2.033 2.22 2.033 3.644V16h-1.641v-1.634c0-.981-.435-1.82-1.18-2.223-1.225-.662-3.065-1.396-5.179-1.396-2.114 0-3.954.734-5.179 1.396-.745.402-1.18 1.242-1.18 2.223V16H0v-1.634c0-1.424.642-2.892 2.033-3.644C3.396 9.985 5.513 9.127 8 9.127z"></path></svg></span>Account</a>
                 </div>
-                <div className="menu-item "><a href="/invite"><span
+                <div className="menu-item "><a Test Account><span
                   className="tw-icon tw-icon-invite " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
                   fill-rule="evenodd" clip-rule="evenodd"
@@ -120,7 +119,7 @@ const Navigation = ({children}: {children: any}) => {
               <div className="balance-group">
                 <div className="balance-group__title">Balances</div>
                 <BalanceList/>
-                <a href="/flows/open-balance" className="balance-group__action"><span
+                <a Test Account className="balance-group__action"><span
                   className="tw-icon tw-icon-plus " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
                   fill-rule="evenodd" clip-rule="evenodd" d="M7.2 16V0h1.6v16H7.2z"></path><path
@@ -129,7 +128,7 @@ const Navigation = ({children}: {children: any}) => {
               <div className="balance-group">
                 <div className="balance-group__title">Jars</div>
                 <ul></ul>
-                <a href="/flows/jars/open" className="balance-group__action"><span
+                <a Test Account className="balance-group__action"><span
                   className="tw-icon tw-icon-plus " aria-hidden="true" role="presentation"><svg
                   width="16" height="16" fill="currentColor" focusable="false"><path
                   fill-rule="evenodd" clip-rule="evenodd" d="M7.2 16V0h1.6v16H7.2z"></path><path
@@ -193,7 +192,7 @@ const Navigation = ({children}: {children: any}) => {
                         <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
                           <span className="tw-tooltip-container" aria-describedby="zixi2b"><div
                             className="tooltip fade bottom " role="tooltip" id="zixi2b"
-                            style={{top: '32px; left: 45px'}}><div className="tooltip-arrow"></div><div
+                            style={{ top: '32px; left: 45px' }}><div className="tooltip-arrow"></div><div
                             className="tooltip-inner">You don't have any USD to convert.</div></div><button
                             type="button"
                             className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
@@ -201,7 +200,7 @@ const Navigation = ({children}: {children: any}) => {
                         <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
                           <span className="tw-tooltip-container" aria-describedby="1qpcu"><div
                             className="tooltip fade bottom " role="tooltip" id="1qpcu"
-                            style={{top: '32px; left: 129.5px;'}}><div
+                            style={{ top: '32px; left: 129.5px;' }}><div
                             className="tooltip-arrow"></div><div
                             className="tooltip-inner">You don't have any USD to send.</div></div><button
                             type="button"
@@ -223,12 +222,12 @@ const Navigation = ({children}: {children: any}) => {
                         </button>
                         <div className="pull-left btn-group m-x-0 m-b-0">
                           <ul className="dropdown-menu dropdown-menu-md css-nkhozk" role="menu">
-                            <li><a role="button" href="#statement-drawer">Statements</a><a
-                              role="button" href="/partner-integration">Connect to accounting</a>
+                            <li><a role="button" Test Account>Statements</a><a
+                              role="button" Test Account>Connect to accounting</a>
                             </li>
-                            <li><a href="/account/direct-debits/" className=" dropdown-item">Direct
+                            <li><a Test Account className=" dropdown-item">Direct
                               Debits</a></li>
-                            <li><a type="button" href="#close-balance" className=" dropdown-item">Close
+                            <li><a type="button" className=" dropdown-item">Close
                               balance</a></li>
                           </ul>
                         </div>
@@ -245,7 +244,7 @@ const Navigation = ({children}: {children: any}) => {
                       <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
                         <span className="tw-tooltip-container" aria-describedby="kihshp"><div
                           className="tooltip fade bottom " role="tooltip" id="kihshp"
-                          style={{top: '0px; left: 0px'}}><div className="tooltip-arrow"></div><div
+                          style={{ top: '0px; left: 0px' }}><div className="tooltip-arrow"></div><div
                           className="tooltip-inner">You don't have any USD to convert.</div></div><button
                           type="button"
                           className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
@@ -253,7 +252,7 @@ const Navigation = ({children}: {children: any}) => {
                       <div className="tw-tooltip-wrapper hidden-md hidden-sm hidden-xs pull-left">
                         <span className="tw-tooltip-container" aria-describedby="a6g19b"><div
                           className="tooltip fade bottom " role="tooltip" id="a6g19b"
-                          style={{top: '0px; left: 0px;'}}><div className="tooltip-arrow"></div><div
+                          style={{ top: '0px; left: 0px;' }}><div className="tooltip-arrow"></div><div
                           className="tooltip-inner">You don't have any USD to send.</div></div><button
                           type="button"
                           className="btn btn-sm np-btn np-btn-sm btn-accent btn-priority-2"
@@ -274,11 +273,11 @@ const Navigation = ({children}: {children: any}) => {
                       </button>
                       <div className="pull-left btn-group m-x-0 m-b-0">
                         <ul className="dropdown-menu dropdown-menu-md css-nkhozk" role="menu">
-                          <li><a role="button" href="#statement-drawer">Statements</a><a
-                            role="button" href="/partner-integration">Connect to accounting</a></li>
-                          <li><a href="/account/direct-debits/" className=" dropdown-item">Direct
+                          <li><a role="button">Statements</a><a
+                            role="button">Connect to accounting</a></li>
+                          <li><a className=" dropdown-item">Direct
                             Debits</a></li>
-                          <li><a type="button" href="#close-balance" className=" dropdown-item">Close
+                          <li><a type="button" className=" dropdown-item">Close
                             balance</a></li>
                         </ul>
                       </div>
@@ -291,9 +290,9 @@ const Navigation = ({children}: {children: any}) => {
                         <div className="dropdown-menu dropdown-menu-right dropdown-menu-md"
                              aria-labelledby="dropdownMenuButton">
                           <li><a className="dropdown-item" role="button"
-                                 href="#statement-drawer">Statements</a></li>
+                          >Statements</a></li>
                           <li><a className="dropdown-item" role="button"
-                                 href="/partner-integration">Connect to accounting</a></li>
+                          >Connect to accounting</a></li>
                         </div>
                       </div>
                       <button type="button"
@@ -312,11 +311,11 @@ const Navigation = ({children}: {children: any}) => {
                       </button>
                       <div className="pull-left btn-group m-x-0 m-b-0">
                         <ul className="dropdown-menu dropdown-menu-md css-nkhozk" role="menu">
-                          <li><a role="button" href="#statement-drawer">Statements</a><a
-                            role="button" href="/partner-integration">Connect to accounting</a></li>
-                          <li><a href="/account/direct-debits/" className=" dropdown-item">Direct
+                          <li><a role="button">Statements</a><a
+                            role="button">Connect to accounting</a></li>
+                          <li><a className=" dropdown-item">Direct
                             Debits</a></li>
-                          <li><a type="button" href="#close-balance" className=" dropdown-item">Close
+                          <li><a type="button" className=" dropdown-item">Close
                             balance</a></li>
                         </ul>
                       </div>
@@ -327,7 +326,7 @@ const Navigation = ({children}: {children: any}) => {
             </div>
             <div className="container full-height-container__balance_navigation full-height-container__balance_navigation--splash-page">
               <div>
-              {children}
+                {children}
               </div>
             </div>
           </div>
