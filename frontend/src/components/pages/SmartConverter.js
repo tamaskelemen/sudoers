@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Navigation from '../navigation/Navigation';
 import LineChart from '../charts/LineChart';
 import SmartConverterTabs from '../tabs/SmartConverterTabs';
@@ -11,6 +11,9 @@ import {Position} from "@transferwise/components";
 import {Size} from "@transferwise/components";
 import {Accordion} from "@transferwise/components";
 import {Balance, New, MultiCurrency} from "@transferwise/icons";
+import {useParams} from 'react-router-dom';
+import currencies from '../tabs/form/currencies';
+import Form from '../tabs/form/Form';
 
 const SmartConverter = () => {
   const [open, setOpen] = React.useState(false);
@@ -31,7 +34,14 @@ const SmartConverter = () => {
   const [dueDate, setDueDate] = useState();
   const [rate, setRate] = useState();
   const [calculation, setCalculation] = useState();
+  const [riskLevel, setRiskLevel] = useState({ value: 'low', label: 'Low risk' });
   const [refreshOrder, setRefreshOrder] = useState(false);
+
+  let { source: sourceFromPath } = useParams();
+
+  useEffect(() => {
+    setSource(currencies.find(currency => currency.value === sourceFromPath))
+  }, [])
 
   function timeWalking(source, target, amount) {
     setOpen(true);
@@ -49,17 +59,22 @@ const SmartConverter = () => {
             <LineChart source={source} setSource={setSource}
                        target={target} setTarget={setTarget}
                        dueDate={dueDate} setDueDate={setDueDate}
-                       rate={rate} setRate={setRate} />
+                       calculation={calculation} setCalculation={setCalculation}
+                       rate={rate} setRate={setRate}
+                       riskLevel={riskLevel} setRiskLevel={setRiskLevel}
+                />
           </div>
           <div className="col-sm-4">
             <SmartConverterTabs source={source} setSource={setSource}
                                 target={target} setTarget={setTarget}
                                 dueDate={dueDate} setDueDate={setDueDate}
-                                rate={rate} setRate={setRate}/>
+                                calculation={calculation} setCalculation={setCalculation}
+                                rate={rate} setRate={setRate}
+                                riskLevel={riskLevel} setRiskLevel={setRiskLevel}/>
           </div>
         </div>
-        <div className="row grid__smart-converter">
-          <Order refresh={refreshOrder}/>
+        <div className="row">
+          <Order />
         </div>
       </Navigation>
         <div
@@ -72,7 +87,7 @@ const SmartConverter = () => {
             className="demo_button">
           <Button
               onClick={
-                () => timeWalking(source.currency, target.currency, calculation)
+                () => timeWalking()
               }>
             Time Walking
           </Button>
