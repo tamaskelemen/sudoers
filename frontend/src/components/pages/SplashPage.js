@@ -7,7 +7,7 @@ class SplashPage extends PureComponent {
         setTimeout(function () {
             document.getElementById("currency").innerHTML = path.split('/')[2];
             document.getElementById("smartconverter-link").href = "/#/smartconverter/" + path.split('/')[2];
-        }, 1000);
+        }, 2000);
 
         var money_waste = false;
 
