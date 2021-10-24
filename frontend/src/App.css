@@ -136,7 +136,7 @@
 }
 
 .splash-page__description {
-  padding-top: 60px;
+  padding-top: 24px;
   font-size: 24px;
   line-height: 31px;
   padding-right: 109px;
@@ -369,13 +369,26 @@
 
 #demo_button {
   position: absolute;
-  top: 10%;
-  left: 90%;
+  top: -13%;
+  right: -180%;
 }
 
 .demo_button_image {
   width: 180px;
   height: 100px;
+}
+
+#yellow-warning__bold {
+  font-weight: bold;
+}
+
+#yellow-warning {
+  position: absolute;
+  width: 700px;
+  height: 200px;
+  top: 670px;
+  left: 343px;
+  color: #f3b618;
 }
 
 .grid__smart-converter {

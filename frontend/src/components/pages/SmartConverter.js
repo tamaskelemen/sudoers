@@ -60,6 +60,9 @@ const SmartConverter = () => {
           <Order />
         </div>
       </Navigation>
+      <div id="yellow-warning">
+        <span id="yellow-warning__bold">WARNING:</span> The yellow dotted line is a predicted value by an algorithm. Our science team created these predictions, but the market can be different from it.
+      </div>
     </div>
   );
 };
