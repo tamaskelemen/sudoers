@@ -8,6 +8,9 @@ international lives. We’d like you to focus on one of our key audiences:
 You can pick 1 (or more) of the problems this audience faces, and build a prototype for a
 solution. The only requisite is that it MUST make international lives easier.
 
+# Junction project video
+https://www.youtube.com/watch?v=oQHsrSeBYPU
+
 # Our solution
 All of you who have ever made a money exchange felt the struggle when you saw the conversion rate between the currencies gone a few points lower. Ithink you know the feeling when you realize that if you could just wait a few hours you could have more monely in your pocket right now.
 
